@@ -64,3 +64,4 @@ Commit every update as soon as it lands. One logical change per commit, message 
 - Shared files (`App.tsx`, `store.tsx`, `data/`, `types.ts`, `index.css`) belong to the integrator only.
 - After both sides land: integrator runs `bun run build` + `bun run lint`, fixes cross-file issues.
 - Spawn mechanism: task needs only ONE slave -> plain subagent (task tool) is fine. Task needs TWO OR MORE slaves running simultaneously -> spawn them via Herdr (pane split + `herdr agent start` / `agent prompt`, see herdr skill), not via multiple task-tool calls. One exclusive file set per Herdr slave, same spec rules.
+- Slaves always work in ponytail ultra and caveman ultra: load both skills at task start (`/ponytail ultra`, `/caveman ultra`). Ultra rules govern their code (shortest diff, no unrequested abstractions) and their replies (max compression). Mandor keeps full levels.
