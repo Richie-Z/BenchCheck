@@ -103,9 +103,8 @@ function Touchpad({
         })}
       </div>
       <div
-        role="button"
-        tabIndex={0}
-        aria-label="Touchpad surface"
+        role="img"
+        aria-label="Touchpad test surface"
         onPointerDown={() => onPadDown()}
         onPointerUp={() => onPadUp()}
         onPointerLeave={() => onPadUp()}
@@ -175,7 +174,8 @@ export function KeyboardTestPage() {
     }
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Tab') e.preventDefault()
+      if (e.key === 'Tab' && !e.shiftKey && containerHasFocus()) e.preventDefault()
+      if (e.key === 'Escape' && containerHasFocus()) containerRef.current?.blur()
       if (e.code === 'Space' && containerHasFocus()) e.preventDefault()
       setPressed((prev) =>
         prev.has(e.code) ? prev : new Set(prev).add(e.code),

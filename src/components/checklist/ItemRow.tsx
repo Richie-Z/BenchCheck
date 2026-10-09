@@ -31,6 +31,8 @@ export function ItemRow({ item, step, i }: { item: CheckItem; step?: number; i: 
     <li className="group relative">
       <button
         type="button"
+        role="checkbox"
+        aria-checked={status === undefined ? 'mixed' : status === 'pass'}
         onClick={() => cycle(item.id)}
         style={{ '--i': i } as CSSProperties}
         className={`bc-in flex w-full items-start gap-3 py-2.5 pr-2 text-left transition-transform duration-150 active:translate-y-px ${
@@ -80,6 +82,7 @@ export function ItemRow({ item, step, i }: { item: CheckItem; step?: number; i: 
             </span>
           )}
         </span>
+        {failed && <span className="sr-only">, failed</span>}
       </button>
       {failed && (
         <div className="pb-2.5 pl-8 pr-2">
