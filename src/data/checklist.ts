@@ -1,0 +1,270 @@
+import {
+  BatteryCharging,
+  Cpu,
+  Gear,
+  Keyboard,
+  Monitor,
+  Plugs,
+  ShieldCheck,
+  SpeakerHigh,
+  Thermometer,
+  WifiHigh,
+} from '@phosphor-icons/react'
+import type { CheckSection } from '../types'
+
+export const SECTIONS: CheckSection[] = [
+  {
+    id: 'hardware',
+    num: 1,
+    title: 'Hardware health',
+    icon: Cpu,
+    note: 'Open HWiNFO summary and CrystalDiskInfo before you start. Compare every line against the seller listing.',
+    items: [
+      {
+        id: 'hw-cpu',
+        label: 'CPU model matches the listing',
+        hint: 'HWiNFO summary screen',
+      },
+      {
+        id: 'hw-ram',
+        label: 'RAM capacity, speed, and stick count match the listing',
+        hint: 'HWiNFO shows slot population too',
+      },
+      {
+        id: 'hw-ssd-health',
+        label: 'SSD or HDD health status is Good',
+        hint: 'CrystalDiskInfo',
+        priority: 1,
+      },
+      {
+        id: 'hw-ssd-hours',
+        label: 'Power-on hours are reasonable for the unit age',
+        hint: 'CrystalDiskInfo',
+      },
+      {
+        id: 'hw-ssd-count',
+        label: 'Power-on count is reasonable',
+        hint: 'CrystalDiskInfo',
+      },
+      {
+        id: 'hw-ssd-writes',
+        label: 'Total host writes are reasonable for a used unit',
+        hint: 'CrystalDiskInfo',
+      },
+      {
+        id: 'hw-ssd-warn',
+        label: 'No warnings or errors reported on the drive',
+        hint: 'CrystalDiskInfo must not show caution or bad status',
+      },
+      {
+        id: 'hw-battery-health',
+        label: 'Battery wear checked: design capacity vs full charge capacity',
+        hint: 'powercfg /batteryreport, then compare the two numbers',
+        priority: 2,
+      },
+      {
+        id: 'hw-gpu',
+        label: 'GPU detected matches the listing',
+        hint: 'HWiNFO or Device Manager',
+      },
+      {
+        id: 'hw-charger',
+        label: 'Charger wattage matches what the laptop needs',
+        hint: 'Read the brick label, then check HWiNFO reports AC adapter',
+      },
+    ],
+  },
+  {
+    id: 'thermals',
+    num: 2,
+    title: 'Temperature and stability',
+    icon: Thermometer,
+    note: 'Use HWiNFO sensors. Cinebench is enough for a quick CPU stress run.',
+    items: [
+      {
+        id: 'th-idle-cpu',
+        label: 'Idle CPU temperature is reasonable',
+        hint: 'Roughly room temp plus 10-20 C at idle',
+      },
+      { id: 'th-idle-ssd', label: 'Idle SSD temperature is reasonable' },
+      { id: 'th-idle-gpu', label: 'Idle GPU temperature is reasonable' },
+      {
+        id: 'th-stress',
+        label: 'CPU stress test ran for 10-15 minutes',
+        hint: 'Cinebench loop or HWiNFO stress',
+        priority: 9,
+      },
+      {
+        id: 'th-load-temp',
+        label: 'Temperatures stayed in a safe range under load',
+      },
+      { id: 'th-shutdown', label: 'No sudden shutdown during the stress test' },
+      { id: 'th-throttle', label: 'No severe thermal throttling' },
+      {
+        id: 'th-fan',
+        label: 'No weird fan noise: grinding, rattle, or constant full speed',
+      },
+    ],
+  },
+  {
+    id: 'display',
+    num: 3,
+    title: 'Display',
+    icon: Monitor,
+    note: 'Run the Display test tab fullscreen in a dark room, then again in a bright room.',
+    items: [
+      {
+        id: 'dp-pixels',
+        label: 'No dead or stuck pixels',
+        hint: 'Fullscreen white, black, red, green, blue in the Display test tab',
+        priority: 4,
+      },
+      { id: 'dp-bleed', label: 'No noticeable backlight bleed' },
+      { id: 'dp-brightness', label: 'Brightness works across the full range' },
+      { id: 'dp-flicker', label: 'No flickering at any brightness' },
+      { id: 'dp-resolution', label: 'Native resolution matches the listing' },
+      { id: 'dp-refresh', label: 'Refresh rate matches the listing' },
+      {
+        id: 'dp-external',
+        label: 'HDMI or DisplayPort output works on an external display',
+      },
+    ],
+  },
+  {
+    id: 'input',
+    num: 4,
+    title: 'Keyboard and touchpad',
+    icon: Keyboard,
+    note: 'The Keyboard test tab highlights every key as you press it.',
+    items: [
+      {
+        id: 'kb-keys',
+        label: 'Every key registers',
+        hint: 'Use the Keyboard test tab and press each key once',
+        priority: 5,
+      },
+      { id: 'kb-fn', label: 'Fn keys work' },
+      { id: 'kb-media', label: 'Volume and brightness keys work' },
+      { id: 'tp-click', label: 'Touchpad click works, left and right' },
+      { id: 'tp-gesture', label: 'Touchpad gestures work: scroll, pinch, swipe' },
+      { id: 'tp-trackpoint', label: 'TrackPoint or pointing stick works, if present' },
+    ],
+  },
+  {
+    id: 'ports',
+    num: 5,
+    title: 'Ports',
+    icon: Plugs,
+    note: 'Plug in real devices. A port that only shows up in Device Manager is not tested.',
+    items: [
+      {
+        id: 'pt-usba',
+        label: 'USB-A port works with a real device',
+        hint: 'Flash drive or mouse, and copy a file',
+        priority: 6,
+      },
+      { id: 'pt-usbc', label: 'USB-C data works with a real device' },
+      { id: 'pt-charge', label: 'Charging port charges the laptop' },
+      { id: 'pt-hdmi', label: 'HDMI output drives a real display' },
+      { id: 'pt-audio', label: 'Audio jack outputs sound with headphones' },
+      { id: 'pt-sd', label: 'SD card reader reads a real card, if present' },
+      { id: 'pt-ethernet', label: 'Ethernet port gets a link, if present' },
+    ],
+  },
+  {
+    id: 'wireless',
+    num: 6,
+    title: 'Wireless',
+    icon: WifiHigh,
+    items: [
+      {
+        id: 'wf-wifi',
+        label: 'Wi-Fi connects to a network',
+        priority: 7,
+      },
+      { id: 'wf-speed', label: 'Wi-Fi speed is reasonable for the band' },
+      { id: 'wf-bt', label: 'Bluetooth pairs with a device' },
+      { id: 'wf-bt-stable', label: 'Bluetooth connect and disconnect stays stable' },
+    ],
+  },
+  {
+    id: 'av',
+    num: 7,
+    title: 'Speaker, microphone, camera',
+    icon: SpeakerHigh,
+    items: [
+      {
+        id: 'av-speakers',
+        label: 'Left and right speakers both play',
+        priority: 8,
+      },
+      { id: 'av-distort', label: 'High volume has no crackling or distortion' },
+      { id: 'av-mic', label: 'Microphone records and plays back cleanly' },
+      { id: 'av-webcam', label: 'Webcam shows a clear image' },
+      { id: 'av-shutter', label: 'Webcam privacy shutter works, if present' },
+    ],
+  },
+  {
+    id: 'battery',
+    num: 8,
+    title: 'Battery behavior',
+    icon: BatteryCharging,
+    items: [
+      { id: 'ba-charge', label: 'Battery charges normally' },
+      { id: 'ba-climb', label: 'Battery percentage climbs while plugged in' },
+      { id: 'ba-adapter', label: 'Charger does not disconnect randomly' },
+      { id: 'ba-drop', label: 'Battery does not suddenly drop' },
+      {
+        id: 'ba-runtime',
+        label: 'Ran on battery for 15-30 minutes without issues',
+      },
+    ],
+  },
+  {
+    id: 'windows',
+    num: 9,
+    title: 'Windows and software',
+    icon: Gear,
+    items: [
+      { id: 'sw-activate', label: 'Windows is activated' },
+      {
+        id: 'sw-devmgr',
+        label: 'Device Manager shows no yellow warnings',
+        priority: 10,
+      },
+      { id: 'sw-unknown', label: 'No unknown devices in Device Manager' },
+      { id: 'sw-drivers', label: 'All drivers are installed' },
+      { id: 'sw-bios-detect', label: 'BIOS recognizes all hardware' },
+      { id: 'sw-bios-pw', label: 'BIOS password is disabled or known' },
+      {
+        id: 'sw-account',
+        label: 'Windows is not tied to the previous owner account',
+        hint: 'Check Microsoft account link, BitLocker, and device management enrollment',
+      },
+    ],
+  },
+  {
+    id: 'bios',
+    num: 10,
+    title: 'BIOS and security',
+    icon: ShieldCheck,
+    note: 'On ThinkPad, Dell, or HP business units, check for a company BIOS lock before you buy.',
+    items: [
+      {
+        id: 'bs-pw',
+        label: 'No BIOS password lock, or the password is known',
+        priority: 10,
+      },
+      { id: 'bs-supervisor', label: 'No supervisor or admin password lock' },
+      { id: 'bs-secureboot', label: 'Secure Boot status is as expected' },
+      { id: 'bs-tpm', label: 'TPM is present and enabled' },
+      { id: 'bs-serial', label: 'Serial number matches the chassis and the listing' },
+      {
+        id: 'bs-detect',
+        label: 'CPU, RAM, and storage all detected in BIOS',
+      },
+    ],
+  },
+]
+
+export const TOTAL_ITEMS = SECTIONS.reduce((sum, s) => sum + s.items.length, 0)
