@@ -1,4 +1,4 @@
-import { ClipboardText, Lightning } from '@phosphor-icons/react'
+import { ClipboardText, Lightning, Printer } from '@phosphor-icons/react'
 import { useMemo, useState, type CSSProperties } from 'react'
 import { FailuresPanel } from '../components/checklist/FailuresPanel'
 import { SectionBand } from '../components/checklist/SectionBand'
@@ -46,7 +46,7 @@ function EmptyState() {
 }
 
 export function ChecklistPage() {
-  const { counts, statuses } = useChecklist()
+  const { counts, statuses, meta, setModel } = useChecklist()
   const [quick, setQuick] = useState(false)
 
   const quickItems = useMemo(
@@ -86,21 +86,48 @@ export function ChecklistPage() {
 
       <h1 className="sr-only">Inspection checklist</h1>
 
+      <div className="mb-4 flex items-center gap-3">
+        <label
+          htmlFor="device-model"
+          className="shrink-0 font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-400"
+        >
+          Device model
+        </label>
+        <input
+          id="device-model"
+          type="text"
+          value={meta.model}
+          onChange={(e) => setModel(e.target.value)}
+          placeholder="e.g. ThinkPad T480"
+          className="w-full max-w-xs rounded-lg border border-zinc-700 bg-zinc-900 px-2.5 py-1.5 font-mono text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-signal focus:outline-none focus:ring-1 focus:ring-signal"
+        />
+      </div>
+
       <SummaryBar />
 
       <div
         style={{ '--i': 1 } as CSSProperties}
         className="bc-in mt-6 flex flex-wrap items-center justify-between gap-3"
       >
-        <div className="inline-flex rounded-lg border border-zinc-800 bg-zinc-900 p-0.5">
-          {modeButton(!quick, 'Full', () => setQuick(false))}
-          {modeButton(quick, 'Quick pass', () => setQuick(true))}
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="inline-flex rounded-lg border border-zinc-800 bg-zinc-900 p-0.5">
+            {modeButton(!quick, 'Full', () => setQuick(false))}
+            {modeButton(quick, 'Quick pass', () => setQuick(true))}
+          </div>
+          {quick && (
+            <span className="font-mono text-xs tabular-nums text-zinc-400">
+              {quickDone} of {quickItems.length} done
+            </span>
+          )}
         </div>
-        {quick && (
-          <span className="font-mono text-xs tabular-nums text-zinc-400">
-            {quickDone} of {quickItems.length} done
-          </span>
-        )}
+        <button
+          type="button"
+          onClick={() => window.print()}
+          className="flex items-center gap-1.5 rounded-lg border border-zinc-700 px-3 py-1.5 text-xs font-medium text-zinc-300 transition-transform duration-150 hover:border-zinc-600 hover:text-zinc-100 active:translate-y-px"
+        >
+          <Printer size={14} weight="regular" />
+          Print report
+        </button>
       </div>
 
       {!quick && <SectionRailMobile sections={SECTIONS} />}

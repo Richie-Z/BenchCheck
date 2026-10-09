@@ -42,3 +42,50 @@
     scroll-behavior: auto !important;
   }
 }
+
+#print-report {
+  display: none;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  #print-report {
+    display: block;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11pt;
+    line-height: 1.45;
+    color: #000;
+  }
+
+  #print-report h1 {
+    font-size: 16pt;
+    margin: 0 0 6pt;
+  }
+
+  #print-report h2 {
+    font-size: 12pt;
+    margin: 14pt 0 4pt;
+    page-break-after: avoid;
+  }
+
+  #print-report p {
+    margin: 2pt 0;
+  }
+
+  #print-report .print-item {
+    page-break-inside: avoid;
+  }
+
+  #print-report .print-reason {
+    margin-left: 16pt;
+  }
+}

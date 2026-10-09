@@ -4,7 +4,7 @@ import { SECTIONS } from '../../data/checklist'
 import { useChecklist } from '../../store'
 
 export function FailuresPanel() {
-  const { statuses } = useChecklist()
+  const { statuses, reasons } = useChecklist()
 
   const failed = SECTIONS.flatMap((section) =>
     section.items
@@ -31,6 +31,11 @@ export function FailuresPanel() {
           <li key={item.id} className="flex items-center gap-3 py-2">
             <Flag size={14} weight="regular" className="shrink-0 text-fail" />
             <span className="min-w-0 flex-1 text-sm text-zinc-300">{item.label}</span>
+            {reasons[item.id] && (
+              <span className="min-w-0 shrink truncate text-xs text-zinc-400">
+                {reasons[item.id]}
+              </span>
+            )}
             <a
               href={`#${section.id}`}
               aria-label={`Go to section ${section.title}`}

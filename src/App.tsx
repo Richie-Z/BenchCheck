@@ -3,6 +3,7 @@ import { ChecklistProvider, useChecklist } from './store'
 import { ChecklistPage } from './pages/ChecklistPage'
 import { DisplayTestPage } from './pages/DisplayTestPage'
 import { KeyboardTestPage } from './pages/KeyboardTestPage'
+import { PrintReport } from './components/checklist/PrintReport'
 
 type Tab = 'checklist' | 'display' | 'keyboard'
 
@@ -36,7 +37,7 @@ function Header({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void }) {
   const { counts } = useChecklist()
 
   return (
-    <header className="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur">
+    <header className="no-print sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6">
         <div className="flex shrink-0 items-center gap-2.5">
           <LogoMark className="size-6 text-signal" />
@@ -96,11 +97,12 @@ function Shell() {
 
       <Header tab={tab} onTab={setTab} />
 
-      <main id="main" tabIndex={-1}>
+      <main id="main" tabIndex={-1} className="no-print">
         {tab === 'checklist' && <ChecklistPage />}
         {tab === 'display' && <DisplayTestPage />}
         {tab === 'keyboard' && <KeyboardTestPage />}
       </main>
+      <PrintReport />
     </div>
   )
 }

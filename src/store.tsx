@@ -11,6 +11,8 @@ import { SECTIONS, TOTAL_ITEMS } from './data/checklist'
 import type { ItemStatus, StatusMap } from './types'
 
 const STORAGE_KEY = 'benchcheck:statuses:v1'
+const REASONS_KEY = 'benchcheck:reasons:v1'
+const META_KEY = 'benchcheck:meta:v1'
 
 interface ChecklistApi {
   statuses: StatusMap
@@ -24,6 +26,10 @@ interface ChecklistApi {
     done: number
     percent: number
   }
+  reasons: Record<string, string>
+  setReason: (id: string, reason: string) => void
+  meta: { model: string }
+  setModel: (model: string) => void
 }
 
 const ChecklistContext = createContext<ChecklistApi | null>(null)
@@ -42,8 +48,38 @@ function loadStatuses(): StatusMap {
   }
 }
 
+function loadReasons(): Record<string, string> {
+  try {
+    const raw = localStorage.getItem(REASONS_KEY)
+    if (!raw) return {}
+    const parsed = JSON.parse(raw)
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      return parsed as Record<string, string>
+    }
+    return {}
+  } catch {
+    return {}
+  }
+}
+
+function loadMeta(): { model: string } {
+  try {
+    const raw = localStorage.getItem(META_KEY)
+    if (!raw) return { model: '' }
+    const parsed = JSON.parse(raw)
+    if (parsed && typeof parsed === 'object' && typeof parsed.model === 'string') {
+      return parsed
+    }
+    return { model: '' }
+  } catch {
+    return { model: '' }
+  }
+}
+
 export function ChecklistProvider({ children }: { children: ReactNode }) {
   const [statuses, setStatuses] = useState<StatusMap>(loadStatuses)
+  const [reasons, setReasons] = useState(loadReasons)
+  const [meta, setMeta] = useState(loadMeta)
 
   useEffect(() => {
     try {
@@ -53,6 +89,22 @@ export function ChecklistProvider({ children }: { children: ReactNode }) {
     }
   }, [statuses])
 
+  useEffect(() => {
+    try {
+      localStorage.setItem(REASONS_KEY, JSON.stringify(reasons))
+    } catch {
+      // storage full or blocked: keep working in memory
+    }
+  }, [reasons])
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(META_KEY, JSON.stringify(meta))
+    } catch {
+      // storage full or blocked: keep working in memory
+    }
+  }, [meta])
+
   const setStatus = useCallback((id: string, status: ItemStatus | null) => {
     setStatuses((prev) => {
       const next = { ...prev }
@@ -61,6 +113,17 @@ export function ChecklistProvider({ children }: { children: ReactNode }) {
       return next
     })
   }, [])
+
+  const setReason = useCallback((id: string, reason: string) => {
+    setReasons((prev) => {
+      const next = { ...prev }
+      if (reason) next[id] = reason
+      else delete next[id]
+      return next
+    })
+  }, [])
+
+  const setModel = useCallback((model: string) => setMeta({ model }), [])
 
   const cycle = useCallback((id: string) => {
     setStatuses((prev) => {
@@ -72,7 +135,10 @@ export function ChecklistProvider({ children }: { children: ReactNode }) {
     })
   }, [])
 
-  const reset = useCallback(() => setStatuses({}), [])
+  const reset = useCallback(() => {
+    setStatuses({})
+    setReasons({})
+  }, [])
 
   const counts = useMemo(() => {
     let pass = 0
@@ -95,8 +161,8 @@ export function ChecklistProvider({ children }: { children: ReactNode }) {
   }, [statuses])
 
   const value = useMemo(
-    () => ({ statuses, cycle, setStatus, reset, counts }),
-    [statuses, cycle, setStatus, reset, counts],
+    () => ({ statuses, cycle, setStatus, reset, counts, reasons, setReason, meta, setModel }),
+    [statuses, cycle, setStatus, reset, counts, reasons, setReason, meta, setModel],
   )
 
   return (
