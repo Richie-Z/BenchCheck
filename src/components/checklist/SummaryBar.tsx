@@ -73,7 +73,7 @@ export function SummaryBar() {
           <p className="mt-3 text-sm text-zinc-400">checks done</p>
         </div>
 
-        <div className="flex flex-wrap items-end gap-x-6 gap-y-4 pr-24 sm:pr-28 sm:gap-x-10">
+        <div className="flex flex-wrap items-end gap-x-6 gap-y-4 pr-12 sm:gap-x-10">
           <Stat value={counts.pass} label="passed" className="text-pass" />
           <Stat value={counts.fail} label="failed" className="text-fail" />
           <Stat
