@@ -136,7 +136,7 @@ export function SummaryBar() {
 
       {grade && (
         <div
-          className={`pointer-events-none absolute -top-8 -right-5 z-10 rotate-[-8deg] border-2 bg-zinc-950/80 p-1 ${
+          className={`pointer-events-none absolute -top-8 -right-5 z-10 rotate-[8deg] border-2 bg-zinc-950/80 p-1 ${
             grade === 'A'
               ? 'border-pass text-pass'
               : grade === 'F'
