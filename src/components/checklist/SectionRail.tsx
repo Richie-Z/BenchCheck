@@ -15,16 +15,14 @@ function sectionState(statuses: StatusMap, section: CheckSection) {
   }
   const total = section.items.length
   const tone =
-    failed > 0
-      ? 'text-fail'
-      : done === total
-        ? 'text-pass'
-        : done > 0
-          ? 'text-signal'
-          : 'text-zinc-400'
-  const titleTone =
-    done === total && failed === 0 ? 'text-pass' : done === total && failed === total ? 'text-fail' : null
-  return { done, total, tone, titleTone }
+    done === 0
+      ? 'text-zinc-400'
+      : failed === done
+        ? 'text-fail'
+        : done === total && failed === 0
+          ? 'text-pass'
+          : 'text-signal'
+  return { done, total, tone }
 }
 
 const pad = (num: number) => String(num).padStart(2, '0')
@@ -41,7 +39,7 @@ export function SectionRail({ sections }: { sections: CheckSection[] }) {
       >
         <ul>
           {sections.map((section) => {
-            const { done, total, tone, titleTone } = sectionState(statuses, section)
+            const { done, total, tone } = sectionState(statuses, section)
             return (
               <li key={section.id}>
                 <a
@@ -52,9 +50,7 @@ export function SectionRail({ sections }: { sections: CheckSection[] }) {
                     <span className="font-mono text-xs tabular-nums text-zinc-400 group-hover:text-signal">
                       {pad(section.num)}
                     </span>
-                    <span
-                      className={`min-w-0 flex-1 truncate text-sm ${titleTone ?? 'text-zinc-400 group-hover:text-zinc-100'}`}
-                    >
+                    <span className="min-w-0 flex-1 truncate text-sm text-zinc-400 group-hover:text-zinc-100">
                       {section.title}
                     </span>
                   </span>
@@ -84,7 +80,7 @@ export function SectionRailMobile({ sections }: { sections: CheckSection[] }) {
       <nav aria-label="Checklist sections">
         <ul className="flex w-max gap-2">
           {sections.map((section) => {
-            const { done, total, tone, titleTone } = sectionState(statuses, section)
+            const { done, total, tone } = sectionState(statuses, section)
             return (
               <li key={section.id}>
                 <a
@@ -94,7 +90,7 @@ export function SectionRailMobile({ sections }: { sections: CheckSection[] }) {
                   <span className="font-mono text-xs tabular-nums text-zinc-400">
                     {pad(section.num)}
                   </span>
-                  <span className={`text-xs ${titleTone ?? 'text-zinc-400'}`}>{section.title}</span>
+                  <span className="text-xs text-zinc-400">{section.title}</span>
                   <span className={`font-mono text-xs tabular-nums ${tone}`}>
                     {done}/{total}
                   </span>
