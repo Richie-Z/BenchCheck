@@ -42,7 +42,7 @@ export function SummaryBar() {
   }
 
   const grade: 'A' | 'B' | 'C' | 'D' | 'F' | null =
-    counts.done === 0
+    counts.done !== counts.total || counts.total === 0
       ? null
       : counts.fail === 0
         ? 'A'
@@ -98,7 +98,7 @@ export function SummaryBar() {
             {confirming ? 'Confirm reset?' : 'Reset'}
           </button>
 
-          {counts.done > 0 && (
+          {counts.done === counts.total && (
             <div className="flex items-center gap-3">
               {counts.pass === counts.total && (
                 <span className="rounded-full bg-pass/15 px-2.5 py-1 font-mono text-[11px] text-pass">

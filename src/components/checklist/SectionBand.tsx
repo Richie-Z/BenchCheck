@@ -26,6 +26,15 @@ export function SectionBand({
 }: SectionBandProps) {
   const { statuses } = useChecklist()
   const done = items.filter((item) => statuses[item.id] !== undefined).length
+  const fail = items.filter((item) => statuses[item.id] === 'fail').length
+  const titleTone =
+    items.length > 0 && done === items.length
+      ? fail === 0
+        ? 'text-pass'
+        : fail === items.length
+          ? 'text-fail'
+          : null
+      : null
   const titleId = id ? `${id}-title` : undefined
 
   return (
@@ -46,7 +55,7 @@ export function SectionBand({
             {Icon && <Icon size={24} weight="regular" className="shrink-0 text-signal" />}
             <h2
               id={titleId}
-              className="min-w-0 flex-1 text-balance text-lg font-semibold tracking-tight text-zinc-100"
+              className={`min-w-0 flex-1 text-balance text-lg font-semibold tracking-tight ${titleTone ?? 'text-zinc-100'}`}
             >
               {title}
             </h2>
