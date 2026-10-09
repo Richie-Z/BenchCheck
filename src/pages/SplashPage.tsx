@@ -115,7 +115,10 @@ export function SplashPage({ onEnter }: { onEnter: () => void }) {
           <div>
             <div className="relative rounded-lg border border-zinc-800 bg-zinc-900 p-5">
               {demoGrade && (
-                <div className={`pointer-events-none absolute -top-6 -right-4 z-10 rotate-[8deg] border-2 bg-zinc-950/80 p-1 ${demoGrade === 'A' ? 'border-pass text-pass' : demoGrade === 'F' ? 'border-fail text-fail' : 'border-signal text-signal'}`}>
+                <div
+                  key={demoGrade}
+                  className={`bc-stamp-press pointer-events-none absolute -top-6 -right-4 z-10 border-2 bg-zinc-950/80 p-1 ${demoGrade === 'A' ? 'border-pass text-pass' : demoGrade === 'F' ? 'border-fail text-fail' : 'border-signal text-signal'}`}
+                >
                   <div className="flex flex-col items-center gap-0.5 border border-current px-2 py-1.5">
                     <LogoMark className="size-3.5" />
                     <span className="font-mono text-xl font-bold leading-none">{demoGrade}</span>
