@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Check } from '@phosphor-icons/react'
 import { ChecklistProvider, useChecklist } from './store'
 import { ChecklistPage } from './pages/ChecklistPage'
 import { DisplayTestPage } from './pages/DisplayTestPage'
@@ -13,6 +12,26 @@ const TABS: { id: Tab; label: string }[] = [
   { id: 'keyboard', label: 'Keyboard test' },
 ]
 
+function LogoMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M41 27V33a6 6 0 0 1-6 6H13a6 6 0 0 1-6-6V15a6 6 0 0 1 6-6h22a6 6 0 0 1 6 6"
+        stroke="currentColor"
+        strokeWidth="4"
+        strokeLinecap="round"
+      />
+      <path
+        d="M15 25l7 7 23-14"
+        stroke="currentColor"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 function Header({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void }) {
   const { counts } = useChecklist()
 
@@ -20,9 +39,7 @@ function Header({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void }) {
     <header className="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6">
         <div className="flex shrink-0 items-center gap-2.5">
-          <span className="grid size-7 place-items-center rounded-lg border border-signal/30 bg-signal/10">
-            <Check size={16} weight="bold" className="text-signal" aria-hidden="true" />
-          </span>
+          <LogoMark className="size-6 text-signal" />
           <span className="hidden text-[15px] font-semibold tracking-tight sm:block">
             <span className="text-zinc-100">Bench</span>
             <span className="text-signal">Check</span>
