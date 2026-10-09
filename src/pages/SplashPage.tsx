@@ -6,6 +6,9 @@ const DEMO = [
   'SSD or HDD health status is Good',
   'Battery wear is within limits',
   'No dead or stuck pixels',
+  'Every key registers',
+  'USB-A port works with a real device',
+  'Wi-Fi speed is reasonable for the band',
 ]
 
 const PATTERNS = ['#ffffff', '#000000', '#ef4444', '#22c55e', '#3b82f6']
@@ -48,8 +51,13 @@ const STEPS: { title: string; body: string }[] = [
 ]
 
 export function SplashPage({ onEnter }: { onEnter: () => void }) {
-  const [demo, setDemo] = useState<number[]>([0, 0, 0])
+  const [demo, setDemo] = useState<number[]>([0, 0, 0, 0, 0, 0])
   const [pattern, setPattern] = useState<string | null>(null)
+
+  const fails = demo.filter((v) => v === 2).length
+  const done = demo.filter((v) => v !== 0).length
+  const demoGrade =
+    done < DEMO.length ? null : fails === 0 ? 'A' : fails === DEMO.length ? 'F' : fails <= 2 ? 'B' : fails <= 4 ? 'C' : 'D'
 
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -83,13 +91,22 @@ export function SplashPage({ onEnter }: { onEnter: () => void }) {
           </div>
 
           <div className="hidden lg:block">
-            <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-5">
-              <div className="flex items-center justify-between">
+            <div className="relative rounded-lg border border-zinc-800 bg-zinc-900 p-5">
+              {demoGrade && (
+                <div className={`pointer-events-none absolute -top-6 -right-4 z-10 rotate-[8deg] border-2 bg-zinc-950/80 p-1 ${demoGrade === 'A' ? 'border-pass text-pass' : demoGrade === 'F' ? 'border-fail text-fail' : 'border-signal text-signal'}`}>
+                  <div className="flex flex-col items-center gap-0.5 border border-current px-2 py-1.5">
+                    <LogoMark className="size-3.5" />
+                    <span className="font-mono text-xl font-bold leading-none">{demoGrade}</span>
+                    <span className="font-mono text-[7px] uppercase leading-none tracking-[0.2em]">Grade</span>
+                  </div>
+                </div>
+              )}
+              <div className="flex items-center justify-between pr-16">
                 <span className="font-mono text-xs uppercase tracking-widest text-zinc-400">
                   Live demo
                 </span>
                 <span className="font-mono text-sm text-signal">
-                  {demo.filter((v) => v !== 0).length}/3
+                  {demo.filter((v) => v !== 0).length}/6
                 </span>
               </div>
               <div className="mt-3">
