@@ -147,7 +147,7 @@ export function SplashPage({ onEnter }: { onEnter: () => void }) {
                     <span
                       className={`font-mono text-sm ${
                         demo[idx] === 0
-                          ? 'text-zinc-600'
+                          ? 'text-zinc-400'
                           : demo[idx] === 1
                             ? 'text-signal'
                             : 'text-fail'
@@ -159,7 +159,7 @@ export function SplashPage({ onEnter }: { onEnter: () => void }) {
                   </button>
                 ))}
               </div>
-              <p className="mt-3 border-t border-zinc-800 pt-3 font-mono text-[11px] uppercase tracking-wider text-zinc-500">
+              <p className="mt-3 border-t border-zinc-800 pt-3 font-mono text-[11px] uppercase tracking-wider text-zinc-400">
                 Click a row to cycle pass / fail
               </p>
             </div>

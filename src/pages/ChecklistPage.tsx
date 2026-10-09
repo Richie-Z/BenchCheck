@@ -91,7 +91,7 @@ export function ChecklistPage() {
           value={meta.model}
           onChange={(e) => setModel(e.target.value)}
           placeholder="e.g. ThinkPad T480"
-          className="w-full max-w-xs rounded-lg border border-zinc-700 bg-zinc-900 px-2.5 py-1.5 font-mono text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-signal focus:outline-none focus:ring-1 focus:ring-signal"
+          className="w-full max-w-xs rounded-lg border border-zinc-700 bg-zinc-900 px-2.5 py-1.5 font-mono text-sm text-zinc-100 placeholder:text-zinc-400 focus:border-signal focus:outline-none focus:ring-1 focus:ring-signal"
         />
       </div>
 
@@ -137,7 +137,7 @@ export function ChecklistPage() {
             style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', letterSpacing: '-0.04em' }}
           >
             {String(counts.done).padStart(2, '0')}
-            <span className="text-zinc-500" style={{ fontSize: '1.25rem' }}>
+            <span className="text-zinc-400" style={{ fontSize: '1.25rem' }}>
               /{counts.total}
             </span>
           </span>
@@ -155,7 +155,7 @@ export function ChecklistPage() {
 
         <div className="flex min-w-0 flex-col gap-8">
           {counts.done === 0 && <EmptyState />}
-          {!quick && <FailuresPanel />}
+          <FailuresPanel />
 
           {quick && (
             <div className="relative mt-6 overflow-hidden border-2 border-signal bg-zinc-950">

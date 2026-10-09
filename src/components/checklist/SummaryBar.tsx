@@ -13,6 +13,19 @@ function Stat({ value, label, className }: { value: number; label: string; class
   )
 }
 
+export function gradeOf(
+  done: number,
+  total: number,
+  fail: number,
+): 'A' | 'B' | 'C' | 'D' | 'F' | null {
+  if (total === 0 || done !== total) return null
+  if (fail === 0) return 'A'
+  if (fail <= 2) return 'B'
+  if (fail <= 4) return 'C'
+  if (fail <= 6) return 'D'
+  return 'F'
+}
+
 export function SummaryBar() {
   const { counts, reset } = useChecklist()
   const [confirming, setConfirming] = useState(false)
@@ -41,18 +54,7 @@ export function SummaryBar() {
     }, 3000)
   }
 
-  const grade: 'A' | 'B' | 'C' | 'D' | 'F' | null =
-    counts.done !== counts.total || counts.total === 0
-      ? null
-      : counts.fail === 0
-        ? 'A'
-        : counts.fail <= 2
-          ? 'B'
-          : counts.fail <= 4
-            ? 'C'
-            : counts.fail <= 6
-              ? 'D'
-              : 'F'
+  const grade = gradeOf(counts.done, counts.total, counts.fail)
 
   return (
     <section
@@ -73,7 +75,10 @@ export function SummaryBar() {
           <p className="mt-3 text-sm text-zinc-400">checks done</p>
         </div>
 
-        <div className="flex flex-wrap items-end gap-x-6 gap-y-4 pr-12 sm:gap-x-10">
+        <div
+          aria-live="polite"
+          className="flex flex-wrap items-end gap-x-6 gap-y-4 pr-12 sm:gap-x-10"
+        >
           <Stat value={counts.pass} label="passed" className="text-pass" />
           <Stat value={counts.fail} label="failed" className="text-fail" />
           <Stat
@@ -133,6 +138,12 @@ export function SummaryBar() {
           {counts.percent}%
         </span>
       </div>
+
+      {grade && (
+        <div aria-live="polite" className="sr-only">
+          Inspection complete. Grade {grade}.
+        </div>
+      )}
 
       {grade && (
         <div

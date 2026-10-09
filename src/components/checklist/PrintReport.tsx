@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { SECTIONS } from '../../data/checklist'
 import { useChecklist } from '../../store'
 import type { CheckSection } from '../../types'
+import { gradeOf } from './SummaryBar'
 
 const today = () => new Date().toISOString().slice(0, 10)
 
@@ -28,6 +29,8 @@ export function PrintReport() {
         })).filter((section) => section.items.length > 0)
       : SECTIONS
 
+  const grade = gradeOf(counts.done, counts.total, counts.fail)
+
   return (
     <article id="print-report" aria-hidden="true">
       <h1>
@@ -41,6 +44,11 @@ export function PrintReport() {
         Result: {counts.pass} passed, {counts.fail} failed,{' '}
         {counts.total - counts.done} pending, {counts.total} total
       </p>
+      {grade && (
+        <p>
+          Grade: {grade} (0 failed = A, 1-2 = B, 3-4 = C, 5-6 = D, 7+ = F)
+        </p>
+      )}
       {sections.map((section) => (
         <section key={section.id}>
           <h2>

@@ -55,7 +55,7 @@ export function ItemRow({ item, step, i }: { item: CheckItem; step?: number; i: 
         {quick ? (
           <span
             aria-hidden
-            className={`mt-0.5 shrink-0 font-mono text-sm leading-5 ${failed ? 'text-fail' : status === 'pass' ? 'text-signal' : 'text-zinc-600'}`}
+            className={`mt-0.5 shrink-0 font-mono text-sm leading-5 ${failed ? 'text-fail' : status === 'pass' ? 'text-signal' : 'text-zinc-400'}`}
           >
             {failed ? '[!]' : status === 'pass' ? '[x]' : '[ ]'}
           </span>
@@ -95,8 +95,8 @@ export function ItemRow({ item, step, i }: { item: CheckItem; step?: number; i: 
             aria-label={`Failure reason: ${item.label}`}
             className={
               quick
-                ? 'w-full rounded-none border-2 border-fail bg-zinc-950 px-2.5 py-1.5 font-mono text-xs text-zinc-100 placeholder:text-zinc-500 focus:border-fail focus:outline-none focus:ring-0'
-                : 'w-full rounded-lg border border-fail/40 bg-fail/5 px-2.5 py-1.5 text-xs text-zinc-100 placeholder:text-zinc-500 focus:border-fail focus:outline-none focus:ring-1 focus:ring-fail'
+                ? 'w-full rounded-none border-2 border-fail bg-zinc-950 px-2.5 py-1.5 font-mono text-xs text-zinc-100 placeholder:text-zinc-400 focus:border-fail focus:outline-none focus:ring-0'
+                : 'w-full rounded-lg border border-fail/40 bg-fail/5 px-2.5 py-1.5 text-xs text-zinc-100 placeholder:text-zinc-400 focus:border-fail focus:outline-none focus:ring-1 focus:ring-fail'
             }
           />
         </div>
