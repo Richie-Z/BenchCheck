@@ -21,6 +21,8 @@ bun run lint     # oxlint, keep zero errors
 
 Run `bun run build` before claiming any task done.
 
+Commit every update as soon as it lands. One logical change per commit, message per Conventional Commits.
+
 ## Structure
 
 | Path | Role |
