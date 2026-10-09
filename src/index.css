@@ -102,6 +102,30 @@
   animation: bc-bolt-strike 320ms ease-out;
 }
 
+/* Grade seal: press down onto the card like a rubber stamp hitting paper. */
+@keyframes bc-stamp-press {
+  0% {
+    opacity: 0;
+    transform: rotate(8deg) translateY(-28px) scale(1.35);
+  }
+  55% {
+    opacity: 1;
+    transform: rotate(8deg) translateY(1px) scale(0.97);
+  }
+  70% {
+    transform: rotate(8deg) translateY(0) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(8deg) translateY(0) scale(1);
+  }
+}
+
+.bc-stamp-press {
+  animation: bc-stamp-press 260ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transform-origin: 50% 20%;
+}
+
 .bc-hazard {
   background-image: repeating-linear-gradient(-45deg, #f59e0b 0 10px, #18181b 10px 20px);
 }
@@ -113,5 +137,10 @@
 @media (prefers-reduced-motion: reduce) {
   .bc-bolt-strike {
     animation: none;
+  }
+
+  .bc-stamp-press {
+    animation: none;
+    opacity: 1;
   }
 }
