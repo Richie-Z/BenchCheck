@@ -19,10 +19,13 @@ function Header({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void }) {
   return (
     <header className="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6">
-        <div className="flex shrink-0 items-center gap-2">
-          <Check size={20} weight="regular" className="text-signal" aria-hidden="true" />
-          <span className="hidden text-[15px] font-semibold tracking-tight text-zinc-100 sm:block">
-            BenchCheck
+        <div className="flex shrink-0 items-center gap-2.5">
+          <span className="grid size-7 place-items-center rounded-lg border border-signal/30 bg-signal/10">
+            <Check size={16} weight="bold" className="text-signal" aria-hidden="true" />
+          </span>
+          <span className="hidden text-[15px] font-semibold tracking-tight sm:block">
+            <span className="text-zinc-100">Bench</span>
+            <span className="text-signal">Check</span>
           </span>
         </div>
 
