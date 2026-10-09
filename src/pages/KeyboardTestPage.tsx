@@ -51,6 +51,81 @@ function Key({ def, state }: { def: KeyDef; state: KeyState }) {
   )
 }
 
+const PAD_BUTTONS = [
+  { id: 'left', label: 'Left', cls: 'flex-[5]' },
+  { id: 'middle', label: 'Middle', cls: 'flex-[2]' },
+  { id: 'right', label: 'Right', cls: 'flex-[5]' },
+] as const
+
+function Touchpad({
+  seen,
+  held,
+  buttons,
+  buttonHeld,
+  onPadDown,
+  onPadUp,
+  onButton,
+}: {
+  seen: boolean
+  held: boolean
+  buttons: Set<string>
+  buttonHeld: string | null
+  onPadDown: () => void
+  onPadUp: () => void
+  onButton: (id: string, down: boolean) => void
+}) {
+  return (
+    <div
+      aria-label="Touchpad test"
+      className="flex min-w-[240px] flex-1 flex-col gap-1.5 lg:shrink-0"
+    >
+      <div className="flex gap-1.5">
+        {PAD_BUTTONS.map((b) => {
+          const down = buttonHeld === b.id
+          const seenB = buttons.has(b.id)
+          const tone = down
+            ? 'border-signal bg-signal text-zinc-950'
+            : seenB
+              ? 'border-signal/40 bg-zinc-800 text-zinc-200'
+              : 'border-zinc-700/60 bg-gradient-to-b from-zinc-800 to-zinc-900 text-zinc-400'
+          return (
+            <button
+              key={b.id}
+              type="button"
+              onPointerDown={() => onButton(b.id, true)}
+              onPointerUp={() => onButton(b.id, false)}
+              onPointerLeave={() => onButton(b.id, false)}
+              className={`h-8 rounded-lg border font-mono text-[10px] transition-transform duration-150 ${b.cls} ${tone} ${down ? 'translate-y-px shadow-[0_0_10px_rgba(245,158,11,0.55)]' : 'shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-2px_4px_rgba(0,0,0,0.35)]'}`}
+            >
+              {b.label}
+            </button>
+          )
+        })}
+      </div>
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label="Touchpad surface"
+        onPointerDown={() => onPadDown()}
+        onPointerUp={() => onPadUp()}
+        onPointerLeave={() => onPadUp()}
+        onPointerCancel={() => onPadUp()}
+        className={`aspect-[4/3] w-full cursor-default rounded-lg border transition-colors duration-150 ${
+          held
+            ? 'border-signal bg-signal/15 shadow-[0_0_14px_rgba(245,158,11,0.35),inset_0_1px_0_rgba(255,255,255,0.15)]'
+            : seen
+              ? 'border-signal/40 bg-zinc-800 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]'
+              : 'border-zinc-700/60 bg-gradient-to-b from-zinc-800 to-zinc-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-2px_4px_rgba(0,0,0,0.35)]'
+        }`}
+      >
+        <span className="pointer-events-none flex h-full items-end justify-center pb-2 font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-400">
+          {held ? '' : seen ? 'Registered' : 'Touchpad'}
+        </span>
+      </div>
+    </div>
+  )
+}
+
 const LEGEND = [
   { label: 'Untested', cls: 'border-zinc-700/60 bg-gradient-to-b from-zinc-800 to-zinc-900' },
   { label: 'Tested', cls: 'border-signal/40 bg-zinc-800' },
@@ -61,6 +136,10 @@ export function KeyboardTestPage() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [pressed, setPressed] = useState<Set<string>>(() => new Set())
   const [held, setHeld] = useState<Set<string>>(() => new Set())
+  const [padSeen, setPadSeen] = useState(false)
+  const [padHeld, setPadHeld] = useState(false)
+  const [padButtons, setPadButtons] = useState<Set<string>>(() => new Set())
+  const [padButtonHeld, setPadButtonHeld] = useState<string | null>(null)
 
   const stateOf = (code: string): KeyState =>
     held.has(code) ? 'held' : pressed.has(code) ? 'seen' : 'idle'
@@ -68,7 +147,21 @@ export function KeyboardTestPage() {
   const reset = () => {
     setPressed(new Set())
     setHeld(new Set())
+    setPadSeen(false)
+    setPadHeld(false)
+    setPadButtons(new Set())
+    setPadButtonHeld(null)
     containerRef.current?.focus()
+  }
+
+  const onPadDown = () => {
+    setPadHeld(true)
+    setPadSeen(true)
+  }
+  const onPadUp = () => setPadHeld(false)
+  const onPadButton = (id: string, down: boolean) => {
+    setPadButtonHeld(down ? id : null)
+    if (down) setPadButtons((prev) => (prev.has(id) ? prev : new Set(prev).add(id)))
   }
 
   useEffect(() => {
@@ -170,13 +263,14 @@ export function KeyboardTestPage() {
         ThinkPad 6-row US layout
       </p>
 
-      <div className="mt-3 rounded-lg border border-zinc-800 bg-gradient-to-b from-zinc-900 to-zinc-950/60 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:p-3">
-        <div
-          ref={containerRef}
-          tabIndex={0}
-          onMouseDown={() => containerRef.current?.focus()}
-          className="overflow-x-auto rounded-lg bg-zinc-950/60 focus-visible:ring-2 focus-visible:ring-signal"
-        >
+      <div className="mt-3 flex flex-col gap-3 lg:flex-row lg:items-start">
+        <div className="min-w-0 shrink-0 rounded-lg border border-zinc-800 bg-gradient-to-b from-zinc-900 to-zinc-950/60 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:p-3">
+          <div
+            ref={containerRef}
+            tabIndex={0}
+            onMouseDown={() => containerRef.current?.focus()}
+            className="overflow-x-auto rounded-lg bg-zinc-950/60 focus-visible:ring-2 focus-visible:ring-signal"
+          >
           <div className="flex w-max flex-col gap-1.5 p-1">
             {KEYBOARD_ROWS.slice(0, 5).map((row, i) => (
               <div key={i} className="flex gap-1.5">
@@ -203,7 +297,17 @@ export function KeyboardTestPage() {
               </div>
             </div>
           </div>
+          </div>
         </div>
+        <Touchpad
+          seen={padSeen}
+          held={padHeld}
+          buttons={padButtons}
+          buttonHeld={padButtonHeld}
+          onPadDown={onPadDown}
+          onPadUp={onPadUp}
+          onButton={onPadButton}
+        />
       </div>
     </div>
   )
