@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Check } from '@phosphor-icons/react'
 import { ChecklistProvider, useChecklist } from './store'
 import { ChecklistPage } from './pages/ChecklistPage'
 import { DisplayTestPage } from './pages/DisplayTestPage'
@@ -18,10 +19,8 @@ function Header({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void }) {
   return (
     <header className="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6">
-        <div className="flex shrink-0 items-center gap-2.5">
-          <span className="grid size-8 place-items-center rounded-lg border border-zinc-700 bg-zinc-900 font-mono text-[11px] font-semibold text-signal">
-            BC
-          </span>
+        <div className="flex shrink-0 items-center gap-2">
+          <Check size={20} weight="regular" className="text-signal" aria-hidden="true" />
           <span className="hidden text-[15px] font-semibold tracking-tight text-zinc-100 sm:block">
             BenchCheck
           </span>
