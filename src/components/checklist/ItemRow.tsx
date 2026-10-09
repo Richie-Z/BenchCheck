@@ -43,7 +43,7 @@ export function ItemRow({ item, step, i }: { item: CheckItem; step?: number; i: 
         />
 
         {step !== undefined && (
-          <span className="mt-0.5 w-6 shrink-0 font-mono text-xs leading-5 tabular-nums text-signal">
+          <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-lg border border-signal/40 bg-signal/15 font-mono text-xs leading-none tabular-nums text-signal">
             {String(step).padStart(2, '0')}
           </span>
         )}

@@ -1,13 +1,11 @@
 import { ClipboardText, Lightning, Printer } from '@phosphor-icons/react'
-import { useMemo, useState, type CSSProperties } from 'react'
+import { useMemo, type CSSProperties } from 'react'
 import { FailuresPanel } from '../components/checklist/FailuresPanel'
 import { SectionBand } from '../components/checklist/SectionBand'
 import { SectionRail, SectionRailMobile } from '../components/checklist/SectionRail'
 import { SummaryBar } from '../components/checklist/SummaryBar'
-import { SECTIONS } from '../data/checklist'
+import { QUICK_ITEMS, SECTIONS } from '../data/checklist'
 import { useChecklist } from '../store'
-
-const ALL_ITEMS = SECTIONS.flatMap((section) => section.items)
 
 const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`
 
@@ -46,16 +44,10 @@ function EmptyState() {
 }
 
 export function ChecklistPage() {
-  const { counts, statuses, meta, setModel } = useChecklist()
-  const [quick, setQuick] = useState(false)
+  const { counts, statuses, meta, setModel, mode, setMode } = useChecklist()
+  const quick = mode === 'quick'
 
-  const quickItems = useMemo(
-    () =>
-      ALL_ITEMS.filter((item) => item.priority !== undefined).sort(
-        (a, b) => (a.priority ?? 0) - (b.priority ?? 0),
-      ),
-    [],
-  )
+  const quickItems = QUICK_ITEMS
 
   const quickDone = useMemo(
     () => quickItems.filter((item) => statuses[item.id] !== undefined).length,
@@ -111,8 +103,8 @@ export function ChecklistPage() {
       >
         <div className="flex flex-wrap items-center gap-3">
           <div className="inline-flex rounded-lg border border-zinc-800 bg-zinc-900 p-0.5">
-            {modeButton(!quick, 'Full', () => setQuick(false))}
-            {modeButton(quick, 'Quick pass', () => setQuick(true))}
+            {modeButton(!quick, 'Full', () => setMode('full'))}
+            {modeButton(quick, 'Quick pass', () => setMode('quick'))}
           </div>
           {quick && (
             <span className="font-mono text-xs tabular-nums text-zinc-400">
@@ -130,6 +122,23 @@ export function ChecklistPage() {
         </button>
       </div>
 
+      {quick && (
+        <div className="mt-6 flex items-center justify-between gap-4 rounded-lg border border-signal/30 bg-signal/[0.04] px-4 py-3.5">
+          <div>
+            <span className="block font-mono text-[11px] uppercase tracking-[0.18em] text-signal">
+              Quick pass - 10 critical checks
+            </span>
+            <span className="mt-1 block text-xs text-zinc-400">
+              Fast screening: the ten checks that catch most bad units.
+            </span>
+          </div>
+          <span className="shrink-0 font-mono text-3xl leading-none tabular-nums text-signal">
+            {counts.done}
+            <span className="text-base text-zinc-400">/{counts.total}</span>
+          </span>
+        </div>
+      )}
+
       {!quick && <SectionRailMobile sections={SECTIONS} />}
 
       <div
@@ -143,15 +152,18 @@ export function ChecklistPage() {
           {counts.done === 0 && <EmptyState />}
           {!quick && <FailuresPanel />}
 
-          {quick ? (
-            <SectionBand
-              title="Quick pass"
-              items={quickItems}
-              quick
-              index={3}
-              icon={Lightning}
-            />
-          ) : (
+          {quick && (
+            <div className="mt-6 rounded-lg border border-signal/30 bg-signal/[0.04] p-3 sm:p-4">
+              <SectionBand
+                title="Quick pass"
+                items={quickItems}
+                quick
+                index={3}
+                icon={Lightning}
+              />
+            </div>
+          )}
+          {!quick &&
             SECTIONS.map((section, k) => (
               <SectionBand
                 key={section.id}
@@ -163,8 +175,7 @@ export function ChecklistPage() {
                 items={section.items}
                 index={3 + k}
               />
-            ))
-          )}
+            ))}
         </div>
       </div>
 

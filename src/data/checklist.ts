@@ -10,7 +10,7 @@ import {
   Thermometer,
   WifiHigh,
 } from '@phosphor-icons/react'
-import type { CheckSection } from '../types'
+import type { CheckItem, CheckSection } from '../types'
 
 export const SECTIONS: CheckSection[] = [
   {
@@ -268,3 +268,7 @@ export const SECTIONS: CheckSection[] = [
 ]
 
 export const TOTAL_ITEMS = SECTIONS.reduce((sum, s) => sum + s.items.length, 0)
+
+export const QUICK_ITEMS: CheckItem[] = SECTIONS.flatMap((s) => s.items)
+  .filter((i) => i.priority !== undefined)
+  .sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0))

@@ -35,25 +35,29 @@ export function SectionBand({
       style={{ '--i': index } as CSSProperties}
       className="bc-in scroll-mt-24 border-t border-zinc-800 pt-6"
     >
-      <div className="flex items-center gap-3">
-        {num !== undefined && (
-          <span className="font-mono text-xl font-semibold leading-none tracking-tight tabular-nums text-signal">
-            {String(num).padStart(2, '0')}
-          </span>
-        )}
-        {Icon && <Icon size={24} weight="regular" className="shrink-0 text-signal" />}
-        <h2
-          id={titleId}
-          className="min-w-0 flex-1 text-balance text-lg font-semibold tracking-tight text-zinc-100"
-        >
-          {title}
-        </h2>
-        <span className="shrink-0 font-mono text-xs tabular-nums text-zinc-400">
-          <span className="text-zinc-100">{done}</span>/{items.length}
-        </span>
-      </div>
+      {!quick && (
+        <>
+          <div className="flex items-center gap-3">
+            {num !== undefined && (
+              <span className="font-mono text-xl font-semibold leading-none tracking-tight tabular-nums text-signal">
+                {String(num).padStart(2, '0')}
+              </span>
+            )}
+            {Icon && <Icon size={24} weight="regular" className="shrink-0 text-signal" />}
+            <h2
+              id={titleId}
+              className="min-w-0 flex-1 text-balance text-lg font-semibold tracking-tight text-zinc-100"
+            >
+              {title}
+            </h2>
+            <span className="shrink-0 font-mono text-xs tabular-nums text-zinc-400">
+              <span className="text-zinc-100">{done}</span>/{items.length}
+            </span>
+          </div>
 
-      {note && <p className="mt-2 max-w-[65ch] text-sm text-zinc-400">{note}</p>}
+          {note && <p className="mt-2 max-w-[65ch] text-sm text-zinc-400">{note}</p>}
+        </>
+      )}
 
       <ul className="mt-4 divide-y divide-zinc-800">
         {items.map((item, i) => (

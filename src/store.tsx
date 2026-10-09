@@ -7,14 +7,20 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { SECTIONS, TOTAL_ITEMS } from './data/checklist'
+import { QUICK_ITEMS, SECTIONS, TOTAL_ITEMS } from './data/checklist'
 import type { ItemStatus, StatusMap } from './types'
+
+export type Mode = 'full' | 'quick'
 
 const STORAGE_KEY = 'benchcheck:statuses:v1'
 const REASONS_KEY = 'benchcheck:reasons:v1'
+const QUICK_STATUSES_KEY = 'benchcheck:quick-statuses:v1'
+const QUICK_REASONS_KEY = 'benchcheck:quick-reasons:v1'
 const META_KEY = 'benchcheck:meta:v1'
 
 interface ChecklistApi {
+  mode: Mode
+  setMode: (m: Mode) => void
   statuses: StatusMap
   cycle: (id: string) => void
   setStatus: (id: string, status: ItemStatus | null) => void
@@ -48,9 +54,37 @@ function loadStatuses(): StatusMap {
   }
 }
 
+function loadQuickStatuses(): StatusMap {
+  try {
+    const raw = localStorage.getItem(QUICK_STATUSES_KEY)
+    if (!raw) return {}
+    const parsed = JSON.parse(raw)
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      return parsed as StatusMap
+    }
+    return {}
+  } catch {
+    return {}
+  }
+}
+
 function loadReasons(): Record<string, string> {
   try {
     const raw = localStorage.getItem(REASONS_KEY)
+    if (!raw) return {}
+    const parsed = JSON.parse(raw)
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      return parsed as Record<string, string>
+    }
+    return {}
+  } catch {
+    return {}
+  }
+}
+
+function loadQuickReasons(): Record<string, string> {
+  try {
+    const raw = localStorage.getItem(QUICK_REASONS_KEY)
     if (!raw) return {}
     const parsed = JSON.parse(raw)
     if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
@@ -77,92 +111,161 @@ function loadMeta(): { model: string } {
 }
 
 export function ChecklistProvider({ children }: { children: ReactNode }) {
-  const [statuses, setStatuses] = useState<StatusMap>(loadStatuses)
-  const [reasons, setReasons] = useState(loadReasons)
+  const [mode, setModeState] = useState<Mode>('full')
+  const [fullStatuses, setFullStatuses] = useState(loadStatuses)
+  const [quickStatuses, setQuickStatuses] = useState(loadQuickStatuses)
+  const [fullReasons, setFullReasons] = useState(loadReasons)
+  const [quickReasons, setQuickReasons] = useState(loadQuickReasons)
   const [meta, setMeta] = useState(loadMeta)
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(statuses))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(fullStatuses))
     } catch {
-      // storage full or blocked: keep working in memory
     }
-  }, [statuses])
+  }, [fullStatuses])
 
   useEffect(() => {
     try {
-      localStorage.setItem(REASONS_KEY, JSON.stringify(reasons))
+      localStorage.setItem(REASONS_KEY, JSON.stringify(fullReasons))
     } catch {
-      // storage full or blocked: keep working in memory
     }
-  }, [reasons])
+  }, [fullReasons])
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(QUICK_STATUSES_KEY, JSON.stringify(quickStatuses))
+    } catch {
+    }
+  }, [quickStatuses])
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(QUICK_REASONS_KEY, JSON.stringify(quickReasons))
+    } catch {
+    }
+  }, [quickReasons])
 
   useEffect(() => {
     try {
       localStorage.setItem(META_KEY, JSON.stringify(meta))
     } catch {
-      // storage full or blocked: keep working in memory
     }
   }, [meta])
 
-  const setStatus = useCallback((id: string, status: ItemStatus | null) => {
-    setStatuses((prev) => {
-      const next = { ...prev }
-      if (status === null) delete next[id]
-      else next[id] = status
-      return next
-    })
-  }, [])
+  const statuses = mode === 'full' ? fullStatuses : quickStatuses
+  const reasons = mode === 'full' ? fullReasons : quickReasons
 
-  const setReason = useCallback((id: string, reason: string) => {
-    setReasons((prev) => {
-      const next = { ...prev }
-      if (reason) next[id] = reason
-      else delete next[id]
-      return next
-    })
-  }, [])
+  const setStatus = useCallback(
+    (id: string, status: ItemStatus | null) => {
+      const set = mode === 'full' ? setFullStatuses : setQuickStatuses
+      set((prev) => {
+        const next = { ...prev }
+        if (status === null) delete next[id]
+        else next[id] = status
+        return next
+      })
+    },
+    [mode],
+  )
+
+  const setReason = useCallback(
+    (id: string, reason: string) => {
+      const set = mode === 'full' ? setFullReasons : setQuickReasons
+      set((prev) => {
+        const next = { ...prev }
+        if (reason) next[id] = reason
+        else delete next[id]
+        return next
+      })
+    },
+    [mode],
+  )
 
   const setModel = useCallback((model: string) => setMeta({ model }), [])
 
-  const cycle = useCallback((id: string) => {
-    setStatuses((prev) => {
-      const next = { ...prev }
-      if (next[id] === undefined) next[id] = 'pass'
-      else if (next[id] === 'pass') next[id] = 'fail'
-      else delete next[id]
-      return next
-    })
-  }, [])
+  const cycle = useCallback(
+    (id: string) => {
+      const set = mode === 'full' ? setFullStatuses : setQuickStatuses
+      set((prev) => {
+        const next = { ...prev }
+        if (next[id] === undefined) next[id] = 'pass'
+        else if (next[id] === 'pass') next[id] = 'fail'
+        else delete next[id]
+        return next
+      })
+    },
+    [mode],
+  )
 
   const reset = useCallback(() => {
-    setStatuses({})
-    setReasons({})
-  }, [])
+    if (mode === 'full') {
+      setFullStatuses({})
+      setFullReasons({})
+    } else {
+      setQuickStatuses({})
+      setQuickReasons({})
+    }
+  }, [mode])
+
+  const setMode = useCallback((m: Mode) => setModeState(m), [])
 
   const counts = useMemo(() => {
     let pass = 0
     let fail = 0
-    for (const section of SECTIONS) {
-      for (const item of section.items) {
+    if (mode === 'quick') {
+      for (const item of QUICK_ITEMS) {
         const status = statuses[item.id]
         if (status === 'pass') pass += 1
         else if (status === 'fail') fail += 1
       }
+    } else {
+      for (const section of SECTIONS) {
+        for (const item of section.items) {
+          const status = statuses[item.id]
+          if (status === 'pass') pass += 1
+          else if (status === 'fail') fail += 1
+        }
+      }
     }
+    const total = mode === 'quick' ? QUICK_ITEMS.length : TOTAL_ITEMS
     const done = pass + fail
     return {
-      total: TOTAL_ITEMS,
+      total,
       pass,
       fail,
       done,
-      percent: TOTAL_ITEMS === 0 ? 0 : Math.round((done / TOTAL_ITEMS) * 100),
+      percent: total === 0 ? 0 : Math.round((done / total) * 100),
     }
-  }, [statuses])
+  }, [statuses, mode])
 
   const value = useMemo(
-    () => ({ statuses, cycle, setStatus, reset, counts, reasons, setReason, meta, setModel }),
-    [statuses, cycle, setStatus, reset, counts, reasons, setReason, meta, setModel],
+    () => ({
+      mode,
+      setMode,
+      statuses,
+      cycle,
+      setStatus,
+      reset,
+      counts,
+      reasons,
+      setReason,
+      meta,
+      setModel,
+    }),
+    [
+      mode,
+      setMode,
+      statuses,
+      cycle,
+      setStatus,
+      reset,
+      counts,
+      reasons,
+      setReason,
+      meta,
+      setModel,
+    ],
   )
 
   return (
