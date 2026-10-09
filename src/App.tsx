@@ -13,7 +13,7 @@ const TABS: { id: Tab; label: string }[] = [
   { id: 'keyboard', label: 'Keyboard test' },
 ]
 
-function LogoMark({ className }: { className?: string }) {
+export function LogoMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 48 48" fill="none" className={className} aria-hidden="true">
       <path

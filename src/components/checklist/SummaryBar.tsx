@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { useChecklist } from '../../store'
+import { LogoMark } from '../../App'
 
 function Stat({ value, label, className }: { value: number; label: string; className: string }) {
   return (
@@ -40,11 +41,24 @@ export function SummaryBar() {
     }, 3000)
   }
 
+  const grade: 'A' | 'B' | 'C' | 'D' | 'F' | null =
+    counts.done === 0
+      ? null
+      : counts.fail === 0
+        ? 'A'
+        : counts.fail <= 2
+          ? 'B'
+          : counts.fail <= 4
+            ? 'C'
+            : counts.fail <= 6
+              ? 'D'
+              : 'F'
+
   return (
     <section
       aria-label="Progress summary"
       style={{ '--i': 0 } as CSSProperties}
-      className="bc-in rounded-lg border border-zinc-800 bg-zinc-900 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:p-6"
+      className="bc-in relative rounded-lg border border-zinc-800 bg-zinc-900 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:p-6"
     >
       <div className="flex flex-wrap items-start justify-between gap-x-8 gap-y-6">
         <div>
@@ -59,7 +73,7 @@ export function SummaryBar() {
           <p className="mt-3 text-sm text-zinc-400">checks done</p>
         </div>
 
-        <div className="flex flex-wrap items-end gap-x-6 gap-y-4 sm:gap-x-10">
+        <div className="flex flex-wrap items-end gap-x-6 gap-y-4 pr-24 sm:pr-28 sm:gap-x-10">
           <Stat value={counts.pass} label="passed" className="text-pass" />
           <Stat value={counts.fail} label="failed" className="text-fail" />
           <Stat
@@ -83,6 +97,21 @@ export function SummaryBar() {
           >
             {confirming ? 'Confirm reset?' : 'Reset'}
           </button>
+
+          {counts.done > 0 && (
+            <div className="flex items-center gap-3">
+              {counts.pass === counts.total && (
+                <span className="rounded-full bg-pass/15 px-2.5 py-1 font-mono text-[11px] text-pass">
+                  All passed
+                </span>
+              )}
+              {counts.pass === 0 && counts.fail > 0 && (
+                <span className="rounded-full bg-fail/15 px-2.5 py-1 font-mono text-[11px] text-fail">
+                  All failed
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
@@ -104,6 +133,26 @@ export function SummaryBar() {
           {counts.percent}%
         </span>
       </div>
+
+      {grade && (
+        <div
+          className={`pointer-events-none absolute -top-8 -right-5 z-10 rotate-[-8deg] border-2 bg-zinc-950/80 p-1 ${
+            grade === 'A'
+              ? 'border-pass text-pass'
+              : grade === 'F'
+                ? 'border-fail text-fail'
+                : 'border-signal text-signal'
+          }`}
+        >
+          <div className="flex flex-col items-center gap-1 border border-current px-3 py-2">
+            <LogoMark className="size-5" />
+            <span className="font-mono text-3xl font-bold leading-none">{grade}</span>
+            <span className="font-mono text-[8px] uppercase tracking-[0.25em] leading-none">
+              Grade
+            </span>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
