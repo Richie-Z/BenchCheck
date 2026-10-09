@@ -29,9 +29,9 @@ Commit every update as soon as it lands. One logical change per commit, message 
 |---|---|
 | `src/data/checklist.ts` | All checklist content (10 sections, 65 items). Content lives here, not in components. |
 | `src/types.ts` | Shared types (`CheckSection`, `CheckItem`, `ItemStatus`) |
-| `src/store.tsx` | `ChecklistProvider` + `useChecklist()`. Statuses persist to localStorage key `benchcheck:statuses:v1`. Item status cycles pending -> pass -> fail -> pending via `cycle(id)`. |
-| `src/App.tsx` | Shell: skip link, sticky header, tabs (checklist / display test / keyboard test), scroll reset on tab change |
-| `src/pages/*` | One file per tab |
+| `src/store.tsx` | `ChecklistProvider` + `useChecklist()`. Mode-scoped state: full statuses/reasons in `benchcheck:statuses:v1` / `benchcheck:reasons:v1`, quick in `benchcheck:quick-statuses:v1` / `benchcheck:quick-reasons:v1`, shared model in `benchcheck:meta:v1`. `cycle(id)` pending -> pass -> fail -> pending. `counts` = active mode only. |
+| `src/App.tsx` | Shell: skip link, sticky header (logo returns to splash, GitHub icon right), tabs (splash first load / checklist / display test / keyboard test), scroll reset on tab change |
+| `src/pages/*` | One file per view. `SplashPage.tsx` = one-time landing (story + CTA), first load opens it, logo click returns to it, tabs hidden on it |
 | `src/components/checklist/*` | Checklist UI: SummaryBar, SectionBand (section + items), SectionRail (sticky index + mobile chip scroller), FailuresPanel, ItemRow |
 | `src/components/tools/*` | Keyboard layout data |
 
@@ -49,12 +49,25 @@ Commit every update as soon as it lands. One logical change per commit, message 
 - No `window.addEventListener('scroll')`. Keyboard/mouse listeners for tests only.
 - Interactive controls: hover state, `active:translate-y-px`, global `:focus-visible` ring already in CSS.
 - Responsive: pages use `mx-auto max-w-6xl px-4 sm:px-6 py-8`; layouts collapse to one column below `md`.
+- SummaryBar grade seal: tilted rubber-stamp (`rotate-[8deg]`, left tilt) hanging off top-right card corner, LogoMark + letter + `GRADE`. Shows ONLY when `done === total` (0 remaining); A=0 fails emerald, B 1-2 / C 3-4 / D 5-6 amber, F red. Pills `All passed`/`All failed` same gate. Stats row `pr-12` reserve; overlap with seal tolerated.
+- Section sidebar count tone: all pass `text-pass`, mixed (not 100% pass) `text-signal` yellow, all fail `text-fail`, untouched `text-zinc-400`. Section titles (rail + band headings) stay neutral zinc, never colorize.
+- Quick mode brutalist exception: square corners (`border-2`, `rounded-none`), hazard stripe, scanlines, ASCII `[ ]/[x]/[!]`, oversized mono counter, static amber bolt watermark (only on quick deck/banner).
+- Favicon = bare LogoMark frame-break mark (no tile). Header + splash footer link to `https://github.com/Richie-Z/BenchCheck`.
 
 ## Content rules
 
 - Checklist wording lives in `src/data/checklist.ts`. Edit data, not components, to change items.
 - One item per group carries `priority` (1-10) = the 30-45 minute quick-pass order.
 - Keep item labels short, imperative, plain English. Hints name the tool (HWiNFO, CrystalDiskInfo, powercfg).
+
+## Verification (learned the hard way)
+
+- Headless check recipe: `bun run dev` (5173) + `chromium --headless=new --no-sandbox --remote-debugging-port=9222` + bun WebSocket CDP script (`Emulation.setDeviceMetricsOverride`, `Runtime.evaluate` for clicks/asserts, `Page.captureScreenshot`).
+- First load = splash: CDP tests must click `Open checklist` before any checklist query, else assertions pass trivially or clicks miss.
+- Seed localStorage from real ids in `src/data/checklist.ts` (quick = `priority` items). Wrong guessed ids silently give wrong counts - mistaken for store bugs twice.
+- Read tool may serve stale screenshot bytes: cross-check with fresh filename + DOM assertions (ground truth).
+- Tailwind v4 scans source at dev-server start: adding a NEW component file while dev server runs = missing utilities (giant unstyled svg). Restart `bun run dev` after adding files; `bun run build` always picks them up.
+- Kill dev/chromium by PID: `pgrep -f "[b]in/vite" | xargs -r kill` (bracket trick so pattern never matches own shell). Plain `pkill -f vite` hangs the shell 120s.
 
 ## Working with parallel agents
 
