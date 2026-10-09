@@ -1,5 +1,14 @@
-import { GithubLogo } from '@phosphor-icons/react'
+import { useState } from 'react'
+import { ArrowRight, GithubLogo } from '@phosphor-icons/react'
 import { LogoMark } from '../App'
+
+const DEMO = [
+  'SSD or HDD health status is Good',
+  'Battery wear is within limits',
+  'No dead or stuck pixels',
+]
+
+const PATTERNS = ['#ffffff', '#000000', '#ef4444', '#22c55e', '#3b82f6']
 
 const STATS: { value: string; label: string }[] = [
   { value: '10', label: 'sections' },
@@ -39,28 +48,84 @@ const STEPS: { title: string; body: string }[] = [
 ]
 
 export function SplashPage({ onEnter }: { onEnter: () => void }) {
+  const [demo, setDemo] = useState<number[]>([0, 0, 0])
+  const [pattern, setPattern] = useState<string | null>(null)
+
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6">
       <section className="py-16 sm:py-24">
-        <LogoMark className="size-12 text-signal" />
-        <p className="mt-8 font-mono text-xs uppercase tracking-widest text-signal">
-          Why BenchCheck
-        </p>
-        <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-zinc-50 sm:text-5xl">
-          Buying a used laptop? Check it like a repair bench.
-        </h1>
-        <p className="mt-5 max-w-2xl text-zinc-400">
-          I bought a used laptop without a clear idea of what to check. No checklist in my
-          head, no guide I trusted. So I built one: every area I wish I had inspected before
-          paying, in the order a bench tech would run it.
-        </p>
-        <button
-          type="button"
-          onClick={onEnter}
-          className="mt-8 rounded-lg bg-signal px-5 py-2.5 text-sm font-semibold text-zinc-950 transition duration-150 hover:bg-amber-400 active:translate-y-px"
-        >
-          Open checklist
-        </button>
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_380px]">
+          <div>
+            <LogoMark className="size-12 text-signal" />
+            <p className="mt-8 font-mono text-xs uppercase tracking-widest text-signal">
+              Why BenchCheck
+            </p>
+            <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-zinc-50 sm:text-5xl">
+              Buying a used laptop? Check it like a repair bench.
+            </h1>
+            <p className="mt-5 max-w-2xl text-zinc-400">
+              I bought a used laptop without a clear idea of what to check. No checklist in my
+              head, no guide I trusted. So I built one: every area I wish I had inspected before
+              paying, in the order a bench tech would run it.
+            </p>
+            <button
+              type="button"
+              onClick={onEnter}
+              className="group mt-8 flex items-center gap-2 rounded-lg bg-signal px-5 py-2.5 text-sm font-semibold text-zinc-950 transition duration-150 hover:bg-amber-400 active:translate-y-px"
+            >
+              Open checklist
+              <ArrowRight
+                size={16}
+                weight="regular"
+                className="transition-transform duration-150 group-hover:translate-x-0.5"
+              />
+            </button>
+          </div>
+
+          <div className="hidden lg:block">
+            <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-5">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-xs uppercase tracking-widest text-zinc-400">
+                  Live demo
+                </span>
+                <span className="font-mono text-sm text-signal">
+                  {demo.filter((v) => v !== 0).length}/3
+                </span>
+              </div>
+              <div className="mt-3">
+                {DEMO.map((label, idx) => (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() =>
+                      setDemo((d) => d.map((v, i) => (i === idx ? (v + 1) % 3 : v)))
+                    }
+                    className="flex w-full items-start gap-3 rounded-lg px-2 py-2 text-left transition-colors duration-150 hover:bg-zinc-800/60"
+                  >
+                    <span className="grid size-5 shrink-0 place-items-center bg-signal font-mono text-xs font-bold text-zinc-950">
+                      {idx + 1}
+                    </span>
+                    <span
+                      className={`font-mono text-sm ${
+                        demo[idx] === 0
+                          ? 'text-zinc-600'
+                          : demo[idx] === 1
+                            ? 'text-signal'
+                            : 'text-fail'
+                      }`}
+                    >
+                      {demo[idx] === 0 ? '[ ]' : demo[idx] === 1 ? '[x]' : '[!]'}
+                    </span>
+                    <span className="text-sm text-zinc-100">{label}</span>
+                  </button>
+                ))}
+              </div>
+              <p className="mt-3 border-t border-zinc-800 pt-3 font-mono text-[11px] uppercase tracking-wider text-zinc-500">
+                Click a row to cycle pass / fail
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="grid grid-cols-2 gap-6 border-y border-zinc-800 py-8 sm:grid-cols-4">
@@ -79,9 +144,31 @@ export function SplashPage({ onEnter }: { onEnter: () => void }) {
         </p>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {COVERS.map((c) => (
-            <div key={c.title} className="rounded-lg border border-zinc-800 bg-zinc-900 p-5">
+            <div
+              key={c.title}
+              className="rounded-lg border border-zinc-800 bg-zinc-900 p-5 transition-colors duration-150 hover:border-signal/50"
+            >
               <h3 className="text-sm font-semibold text-zinc-100">{c.title}</h3>
               <p className="mt-2 text-sm text-zinc-400">{c.body}</p>
+              {c.title === 'Display test' && (
+                <div className="mt-4">
+                  <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
+                    Test patterns
+                  </p>
+                  <div className="mt-2 flex gap-2">
+                    {PATTERNS.map((color) => (
+                      <button
+                        key={color}
+                        type="button"
+                        aria-label={`Preview ${color}`}
+                        onClick={() => setPattern(color)}
+                        style={{ background: color }}
+                        className="size-8 rounded-lg border border-zinc-700 transition-transform duration-150 hover:scale-110 active:scale-95"
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -118,6 +205,22 @@ export function SplashPage({ onEnter }: { onEnter: () => void }) {
           Source on GitHub
         </a>
       </footer>
+
+      {pattern && (
+        <div
+          className="fixed inset-0 z-50"
+          style={{ background: pattern }}
+          onClick={() => setPattern(null)}
+        >
+          <span
+            className={`absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-xs uppercase tracking-widest ${
+              pattern === '#ffffff' ? 'text-zinc-950/50' : 'text-white/50'
+            }`}
+          >
+            Click anywhere to exit
+          </span>
+        </div>
+      )}
     </div>
   )
 }
