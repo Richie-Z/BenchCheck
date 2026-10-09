@@ -58,7 +58,7 @@ Commit every update as soon as it lands. One logical change per commit, message 
 
 ## Working with parallel agents
 
-- Role split: Mandor (main agent) thinks. Design reads, audits, task splitting, arbitration, integration are Mandor jobs. Slaves never think a lot - their job is to execute and write code from a precise spec. Give slaves exact file sets, exact features, exact constraints; expect code and verification back, not design debate.
+- Role split: Mandor (main agent) thinks. Design reads, audits, task splitting, arbitration, integration are Mandor jobs. Mandor never writes code - all code changes go through slaves. Slaves never think a lot - their job is to execute and write code from a precise spec. Give slaves exact file sets, exact features, exact constraints; expect code and verification back, not design debate.
 - Slaves may load taste/design skill files for reference when told, but direction decisions stay with Mandor.
 - File ownership: agree exclusive file sets before spawning. Never edit files outside your set.
 - Shared files (`App.tsx`, `store.tsx`, `data/`, `types.ts`, `index.css`) belong to the integrator only.
