@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { GithubLogo } from '@phosphor-icons/react'
 import { ChecklistProvider, useChecklist } from './store'
 import { ChecklistPage } from './pages/ChecklistPage'
 import { DisplayTestPage } from './pages/DisplayTestPage'
@@ -83,6 +84,16 @@ function Header({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void }) {
             </div>
           </>
         )}
+
+        <a
+          href="https://github.com/Richie-Z/BenchCheck"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub repository"
+          className="ml-auto shrink-0 text-zinc-400 transition-colors hover:text-signal"
+        >
+          <GithubLogo size={20} weight="regular" />
+        </a>
       </div>
     </header>
   )

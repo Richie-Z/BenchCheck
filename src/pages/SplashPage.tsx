@@ -1,3 +1,4 @@
+import { GithubLogo } from '@phosphor-icons/react'
 import { LogoMark } from '../App'
 
 const STATS: { value: string; label: string }[] = [
@@ -101,12 +102,21 @@ export function SplashPage({ onEnter }: { onEnter: () => void }) {
         </ol>
       </section>
 
-      <footer className="mt-4 flex items-center gap-3 border-t border-zinc-800 py-10">
+      <footer className="mt-4 flex items-center justify-between gap-4 border-t border-zinc-800 py-10">
         <LogoMark className="size-5 text-signal" />
         <p className="text-sm text-zinc-400">
           Built for anyone buying second-hand hardware who wants a straight answer before
           handing over cash.
         </p>
+        <a
+          href="https://github.com/Richie-Z/BenchCheck"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ml-auto flex items-center gap-1.5 text-sm text-zinc-400 transition-colors hover:text-signal"
+        >
+          <GithubLogo size={16} weight="regular" />
+          Source on GitHub
+        </a>
       </footer>
     </div>
   )
