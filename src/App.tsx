@@ -44,7 +44,7 @@ function Header({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void }) {
         <button
           type="button"
           onClick={() => onTab('splash')}
-          className="flex shrink-0 items-center gap-2.5"
+          className="-m-3 flex shrink-0 items-center gap-2.5 p-3"
         >
           <LogoMark className="size-6 text-signal" />
           <span className="hidden text-[15px] font-semibold tracking-tight sm:block">
@@ -72,7 +72,7 @@ function Header({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void }) {
               ))}
             </nav>
 
-            <div className="hidden shrink-0 items-center gap-3 font-mono text-xs tabular-nums sm:flex">
+            <div className="flex shrink-0 items-center gap-3 font-mono text-xs tabular-nums">
               <span className="text-zinc-400">
                 <span className="text-zinc-100">{counts.done}</span>/{counts.total}
               </span>
@@ -90,7 +90,7 @@ function Header({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub repository"
-          className="ml-auto shrink-0 text-zinc-400 transition-colors hover:text-signal"
+          className="-m-3 ml-auto flex shrink-0 p-3 text-zinc-400 transition-colors hover:text-signal"
         >
           <GithubLogo size={20} weight="regular" />
         </a>
