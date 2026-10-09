@@ -25,6 +25,8 @@ export function ItemRow({ item, step, i }: { item: CheckItem; step?: number; i: 
 
   const label = failed ? 'text-fail' : done ? 'text-zinc-400' : 'text-zinc-100'
 
+  const quick = step !== undefined
+
   return (
     <li className="group relative">
       <button
@@ -43,21 +45,40 @@ export function ItemRow({ item, step, i }: { item: CheckItem; step?: number; i: 
         />
 
         {step !== undefined && (
-          <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-lg border border-signal/40 bg-signal/15 font-mono text-xs leading-none tabular-nums text-signal">
+          <span className="mt-0.5 grid size-6 shrink-0 place-items-center bg-signal font-mono text-xs font-bold leading-none tabular-nums text-zinc-950">
             {String(step).padStart(2, '0')}
           </span>
         )}
 
-        <span
-          className={`mt-0.5 grid size-5 shrink-0 place-items-center rounded border ${control}`}
-        >
-          {status === 'pass' && <Check size={12} weight="regular" className="text-pass" />}
-          {failed && <Flag size={12} weight="regular" className="text-fail" />}
-        </span>
+        {quick ? (
+          <span
+            aria-hidden
+            className={`mt-0.5 shrink-0 font-mono text-sm leading-5 ${failed ? 'text-fail' : status === 'pass' ? 'text-signal' : 'text-zinc-600'}`}
+          >
+            {failed ? '[!]' : status === 'pass' ? '[x]' : '[ ]'}
+          </span>
+        ) : (
+          <span
+            className={`mt-0.5 grid size-5 shrink-0 place-items-center rounded border ${control}`}
+          >
+            {status === 'pass' && <Check size={12} weight="regular" className="text-pass" />}
+            {failed && <Flag size={12} weight="regular" className="text-fail" />}
+          </span>
+        )}
 
         <span className="min-w-0 flex-1">
           <span className={`block text-sm ${label}`}>{item.label}</span>
-          {item.hint && <span className="mt-0.5 block text-xs text-zinc-400">{item.hint}</span>}
+          {item.hint && (
+            <span
+              className={
+                quick
+                  ? 'mt-0.5 block font-mono text-[10px] uppercase tracking-[0.08em] text-zinc-400'
+                  : 'mt-0.5 block text-xs text-zinc-400'
+              }
+            >
+              {item.hint}
+            </span>
+          )}
         </span>
       </button>
       {failed && (
@@ -67,9 +88,13 @@ export function ItemRow({ item, step, i }: { item: CheckItem; step?: number; i: 
             type="text"
             value={reasons[item.id] ?? ''}
             onChange={(e) => setReason(item.id, e.target.value)}
-            placeholder="Why it failed"
+            placeholder={quick ? '> Why it failed' : 'Why it failed'}
             aria-label={`Failure reason: ${item.label}`}
-            className="w-full rounded-lg border border-fail/40 bg-fail/5 px-2.5 py-1.5 text-xs text-zinc-100 placeholder:text-zinc-500 focus:border-fail focus:outline-none focus:ring-1 focus:ring-fail"
+            className={
+              quick
+                ? 'w-full rounded-none border-2 border-fail bg-zinc-950 px-2.5 py-1.5 font-mono text-xs text-zinc-100 placeholder:text-zinc-500 focus:border-fail focus:outline-none focus:ring-0'
+                : 'w-full rounded-lg border border-fail/40 bg-fail/5 px-2.5 py-1.5 text-xs text-zinc-100 placeholder:text-zinc-500 focus:border-fail focus:outline-none focus:ring-1 focus:ring-fail'
+            }
           />
         </div>
       )}

@@ -123,18 +123,23 @@ export function ChecklistPage() {
       </div>
 
       {quick && (
-        <div className="mt-6 flex items-center justify-between gap-4 rounded-lg border border-signal/30 bg-signal/[0.04] px-4 py-3.5">
+        <div className="mt-6 flex items-center justify-between gap-4 border-2 border-signal bg-zinc-950 px-4 py-4">
           <div>
-            <span className="block font-mono text-[11px] uppercase tracking-[0.18em] text-signal">
-              Quick pass - 10 critical checks
+            <span className="block font-mono text-xs font-semibold uppercase tracking-[0.14em] text-signal">
+              [ Quick pass // 10 critical checks ]
             </span>
-            <span className="mt-1 block text-xs text-zinc-400">
-              Fast screening: the ten checks that catch most bad units.
+            <span className="mt-1.5 block font-mono text-[10px] uppercase tracking-[0.1em] text-zinc-400">
+              &gt;&gt;&gt; Fast screening. Ten checks that catch most bad units.
             </span>
           </div>
-          <span className="shrink-0 font-mono text-3xl leading-none tabular-nums text-signal">
-            {counts.done}
-            <span className="text-base text-zinc-400">/{counts.total}</span>
+          <span
+            className="shrink-0 font-mono font-medium leading-none tabular-nums text-signal"
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', letterSpacing: '-0.04em' }}
+          >
+            {String(counts.done).padStart(2, '0')}
+            <span className="text-zinc-500" style={{ fontSize: '1.25rem' }}>
+              /{counts.total}
+            </span>
           </span>
         </div>
       )}
@@ -153,14 +158,26 @@ export function ChecklistPage() {
           {!quick && <FailuresPanel />}
 
           {quick && (
-            <div className="mt-6 rounded-lg border border-signal/30 bg-signal/[0.04] p-3 sm:p-4">
-              <SectionBand
-                title="Quick pass"
-                items={quickItems}
-                quick
-                index={3}
-                icon={Lightning}
-              />
+            <div className="relative mt-6 overflow-hidden border-2 border-signal bg-zinc-950">
+              <div aria-hidden className="h-2 w-full bc-hazard" />
+              <svg
+                key={counts.done}
+                aria-hidden
+                viewBox="0 0 24 48"
+                className="bc-bolt-strike pointer-events-none absolute right-6 top-1/2 h-2/3 w-auto -translate-y-1/2 fill-signal opacity-[0.07]"
+              >
+                <path d="M15 2 L5 27 h7 l-2 19 L21 21 h-8 l4-19 z" />
+              </svg>
+              <div aria-hidden className="bc-scanlines pointer-events-none absolute inset-0" />
+              <div className="relative p-3 sm:p-4">
+                <SectionBand
+                  title="Quick pass"
+                  items={quickItems}
+                  quick
+                  index={3}
+                  icon={Lightning}
+                />
+              </div>
             </div>
           )}
           {!quick &&
