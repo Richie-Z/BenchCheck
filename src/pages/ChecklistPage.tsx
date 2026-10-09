@@ -1,0 +1,149 @@
+import { ClipboardText, Lightning } from '@phosphor-icons/react'
+import { useMemo, useState, type CSSProperties } from 'react'
+import { FailuresPanel } from '../components/checklist/FailuresPanel'
+import { SectionBand } from '../components/checklist/SectionBand'
+import { SectionRail, SectionRailMobile } from '../components/checklist/SectionRail'
+import { SummaryBar } from '../components/checklist/SummaryBar'
+import { SECTIONS } from '../data/checklist'
+import { useChecklist } from '../store'
+
+const ALL_ITEMS = SECTIONS.flatMap((section) => section.items)
+
+const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`
+
+const PAGE_CSS = `
+html { scroll-behavior: smooth; }
+@keyframes bc-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.bc-in {
+  animation: bc-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+section[id]:target { border-top-color: var(--color-signal); }
+@media (prefers-reduced-motion: reduce) {
+  .bc-in { animation: none; }
+  html { scroll-behavior: auto; }
+}
+`
+
+function EmptyState() {
+  return (
+    <section
+      style={{ '--i': 2 } as CSSProperties}
+      className="bc-in rounded-lg border border-zinc-800 px-6 py-14 text-center"
+    >
+      <ClipboardText size={32} weight="regular" className="mx-auto text-zinc-600" />
+      <p className="mt-3 text-balance text-base font-medium text-zinc-200">
+        Nothing checked yet
+      </p>
+      <p className="mt-1.5 text-sm text-zinc-400">
+        Start with CrystalDiskInfo and the battery report, section 1.
+      </p>
+    </section>
+  )
+}
+
+export function ChecklistPage() {
+  const { counts, statuses } = useChecklist()
+  const [quick, setQuick] = useState(false)
+
+  const quickItems = useMemo(
+    () =>
+      ALL_ITEMS.filter((item) => item.priority !== undefined).sort(
+        (a, b) => (a.priority ?? 0) - (b.priority ?? 0),
+      ),
+    [],
+  )
+
+  const quickDone = useMemo(
+    () => quickItems.filter((item) => statuses[item.id] !== undefined).length,
+    [quickItems, statuses],
+  )
+
+  const modeButton = (active: boolean, label: string, onClick: () => void) => (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`rounded-lg px-3.5 py-1.5 text-xs font-medium transition-transform duration-150 active:translate-y-px ${
+        active ? 'bg-signal text-zinc-950' : 'text-zinc-400 hover:text-zinc-100'
+      }`}
+    >
+      {label}
+    </button>
+  )
+
+  return (
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <style>{PAGE_CSS}</style>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-50 opacity-[0.045] mix-blend-overlay"
+        style={{ backgroundImage: GRAIN }}
+      />
+
+      <h1 className="sr-only">Inspection checklist</h1>
+
+      <SummaryBar />
+
+      <div
+        style={{ '--i': 1 } as CSSProperties}
+        className="bc-in mt-6 flex flex-wrap items-center justify-between gap-3"
+      >
+        <div className="inline-flex rounded-lg border border-zinc-800 bg-zinc-900 p-0.5">
+          {modeButton(!quick, 'Full', () => setQuick(false))}
+          {modeButton(quick, 'Quick pass', () => setQuick(true))}
+        </div>
+        {quick && (
+          <span className="font-mono text-xs tabular-nums text-zinc-400">
+            {quickDone} of {quickItems.length} done
+          </span>
+        )}
+      </div>
+
+      {!quick && <SectionRailMobile sections={SECTIONS} />}
+
+      <div
+        className={
+          quick ? 'mt-8' : 'mt-8 md:grid md:grid-cols-[14rem_1fr] md:gap-x-10'
+        }
+      >
+        {!quick && <SectionRail sections={SECTIONS} />}
+
+        <div className="flex min-w-0 flex-col gap-8">
+          {counts.done === 0 && <EmptyState />}
+          {!quick && <FailuresPanel />}
+
+          {quick ? (
+            <SectionBand
+              title="Quick pass"
+              items={quickItems}
+              quick
+              index={3}
+              icon={Lightning}
+            />
+          ) : (
+            SECTIONS.map((section, k) => (
+              <SectionBand
+                key={section.id}
+                id={section.id}
+                num={section.num}
+                icon={section.icon}
+                title={section.title}
+                note={section.note}
+                items={section.items}
+                index={3 + k}
+              />
+            ))
+          )}
+        </div>
+      </div>
+
+      <footer className="mt-10 border-t border-zinc-800 pt-4 text-xs text-zinc-400">
+        Status is saved in this browser.
+      </footer>
+    </div>
+  )
+}
