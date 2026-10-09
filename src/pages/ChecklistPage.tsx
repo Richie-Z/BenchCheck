@@ -59,7 +59,7 @@ export function ChecklistPage() {
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`rounded-lg px-3.5 py-1.5 text-xs font-medium transition-transform duration-150 active:translate-y-px ${
+      className={`min-h-11 rounded-lg px-3.5 py-1.5 text-xs font-medium transition-transform duration-150 active:translate-y-px ${
         active ? 'bg-signal text-zinc-950' : 'text-zinc-400 hover:text-zinc-100'
       }`}
     >
@@ -91,7 +91,7 @@ export function ChecklistPage() {
           value={meta.model}
           onChange={(e) => setModel(e.target.value)}
           placeholder="e.g. ThinkPad T480"
-          className="w-full max-w-xs rounded-lg border border-zinc-700 bg-zinc-900 px-2.5 py-1.5 font-mono text-sm text-zinc-100 placeholder:text-zinc-400 focus:border-signal focus:outline-none focus:ring-1 focus:ring-signal"
+          className="min-h-11 w-full max-w-xs rounded-lg border border-zinc-700 bg-zinc-900 px-2.5 py-1.5 font-mono text-sm text-zinc-100 placeholder:text-zinc-400 focus:border-signal focus:outline-none focus:ring-1 focus:ring-signal"
         />
       </div>
 
@@ -115,7 +115,7 @@ export function ChecklistPage() {
         <button
           type="button"
           onClick={() => window.print()}
-          className="flex items-center gap-1.5 rounded-lg border border-zinc-700 px-3 py-1.5 text-xs font-medium text-zinc-300 transition-transform duration-150 hover:border-zinc-600 hover:text-zinc-100 active:translate-y-px"
+          className="flex min-h-11 items-center gap-1.5 rounded-lg border border-zinc-700 px-3 py-1.5 text-xs font-medium text-zinc-300 transition-transform duration-150 hover:border-zinc-600 hover:text-zinc-100 active:translate-y-px"
         >
           <Printer size={14} weight="regular" />
           Print report

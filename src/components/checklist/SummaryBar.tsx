@@ -94,7 +94,7 @@ export function SummaryBar() {
               cancel()
               setConfirming(false)
             }}
-            className={`rounded-lg border px-3 py-1.5 text-sm font-medium transition-transform duration-150 active:translate-y-px ${
+            className={`min-h-11 rounded-lg border px-3 py-1.5 text-sm font-medium transition-transform duration-150 active:translate-y-px ${
               confirming
                 ? 'border-signal bg-signal/10 text-signal'
                 : 'border-zinc-700 text-zinc-300 hover:border-zinc-600 hover:text-zinc-100'
@@ -147,7 +147,7 @@ export function SummaryBar() {
 
       {grade && (
         <div
-          className={`pointer-events-none absolute -top-8 -right-5 z-10 rotate-[8deg] border-2 bg-zinc-950/80 p-1 ${
+          className={`pointer-events-none absolute -top-8 right-0 z-10 rotate-[8deg] border-2 bg-zinc-950/80 p-1 sm:-right-5 ${
             grade === 'A'
               ? 'border-pass text-pass'
               : grade === 'F'

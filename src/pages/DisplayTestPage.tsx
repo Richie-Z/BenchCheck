@@ -104,7 +104,7 @@ function FullscreenTest({
               setIndex(i)
               showControls()
             }}
-            className={`size-8 shrink-0 rounded-lg border border-zinc-600 transition-transform duration-150 hover:-translate-y-px active:translate-y-px ${
+            className={`size-8 min-h-11 min-w-11 shrink-0 rounded-lg border border-zinc-600 transition-transform duration-150 hover:-translate-y-px active:translate-y-px ${
               i === index ? 'ring-2 ring-signal' : ''
             }`}
             style={{ background: c.value }}
@@ -121,7 +121,7 @@ function FullscreenTest({
         <button
           type="button"
           onClick={onExit}
-          className={`shrink-0 rounded-lg border px-3 py-1.5 text-xs font-medium transition-transform duration-150 hover:-translate-y-px active:translate-y-px ${theme.exit}`}
+          className={`min-h-11 shrink-0 rounded-lg border px-3 py-1.5 text-xs font-medium transition-transform duration-150 hover:-translate-y-px active:translate-y-px ${theme.exit}`}
         >
           Exit
         </button>
@@ -174,7 +174,7 @@ export function DisplayTestPage() {
                 type="button"
                 onClick={() => start(i)}
                 aria-label={`Start on ${c.name}`}
-                className="group flex flex-col items-center gap-2"
+                className="group flex min-w-11 flex-col items-center gap-2"
               >
                 <span
                   className="size-8 rounded-lg border border-zinc-700 transition-transform duration-150 group-hover:-translate-y-0.5"
@@ -191,7 +191,7 @@ export function DisplayTestPage() {
         <button
           type="button"
           onClick={() => start(0)}
-          className="rounded-lg bg-signal px-5 py-2.5 text-sm font-medium text-zinc-950 transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-px"
+          className="min-h-11 rounded-lg bg-signal px-5 py-2.5 text-sm font-medium text-zinc-950 transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-px"
         >
           Start fullscreen test
         </button>

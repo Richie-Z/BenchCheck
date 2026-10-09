@@ -95,7 +95,7 @@ function Touchpad({
               onPointerDown={() => onButton(b.id, true)}
               onPointerUp={() => onButton(b.id, false)}
               onPointerLeave={() => onButton(b.id, false)}
-              className={`h-8 rounded-lg border font-mono text-[10px] transition-transform duration-150 ${b.cls} ${tone} ${down ? 'translate-y-px shadow-[0_0_10px_rgba(245,158,11,0.55)]' : 'shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-2px_4px_rgba(0,0,0,0.35)]'}`}
+              className={`min-h-11 rounded-lg border font-mono text-[10px] transition-transform duration-150 ${b.cls} ${tone} ${down ? 'translate-y-px shadow-[0_0_10px_rgba(245,158,11,0.55)]' : 'shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-2px_4px_rgba(0,0,0,0.35)]'}`}
             >
               {b.label}
             </button>
@@ -251,7 +251,7 @@ export function KeyboardTestPage() {
           <button
             type="button"
             onClick={reset}
-            className="flex items-center gap-1.5 rounded-lg border border-zinc-800 px-3 py-1.5 text-xs text-zinc-400 transition-transform duration-150 hover:border-zinc-700 hover:text-zinc-100 active:translate-y-px"
+            className="flex min-h-11 items-center gap-1.5 rounded-lg border border-zinc-800 px-3 py-1.5 text-xs text-zinc-400 transition-transform duration-150 hover:border-zinc-700 hover:text-zinc-100 active:translate-y-px"
           >
             <ArrowCounterClockwise size={14} weight="regular" />
             Reset
