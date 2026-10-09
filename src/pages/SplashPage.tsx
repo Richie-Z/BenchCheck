@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ArrowRight, GithubLogo } from '@phosphor-icons/react'
 import { LogoMark } from '../App'
+import { SECTIONS } from '../data/checklist'
+
+const TRY_KEYS = ['a', 's', 'd', 'f', 'space', 'enter']
 
 const DEMO = [
   'SSD or HDD health status is Good',
@@ -53,6 +56,25 @@ const STEPS: { title: string; body: string }[] = [
 export function SplashPage({ onEnter }: { onEnter: () => void }) {
   const [demo, setDemo] = useState<number[]>([0, 0, 0, 0, 0, 0])
   const [pattern, setPattern] = useState<string | null>(null)
+  const [pressed, setPressed] = useState<string | null>(null)
+
+  useEffect(() => {
+    const toKey = (k: string) => (k === ' ' ? 'space' : k.toLowerCase())
+    const down = (e: KeyboardEvent) => {
+      const key = toKey(e.key)
+      if (TRY_KEYS.includes(key)) setPressed(key)
+    }
+    const up = (e: KeyboardEvent) => {
+      const key = toKey(e.key)
+      if (TRY_KEYS.includes(key)) setPressed((p) => (p === key ? null : p))
+    }
+    window.addEventListener('keydown', down)
+    window.addEventListener('keyup', up)
+    return () => {
+      window.removeEventListener('keydown', down)
+      window.removeEventListener('keyup', up)
+    }
+  }, [])
 
   const fails = demo.filter((v) => v === 2).length
   const done = demo.filter((v) => v !== 0).length
@@ -90,7 +112,7 @@ export function SplashPage({ onEnter }: { onEnter: () => void }) {
             </button>
           </div>
 
-          <div className="hidden lg:block">
+          <div>
             <div className="relative rounded-lg border border-zinc-800 bg-zinc-900 p-5">
               {demoGrade && (
                 <div className={`pointer-events-none absolute -top-6 -right-4 z-10 rotate-[8deg] border-2 bg-zinc-950/80 p-1 ${demoGrade === 'A' ? 'border-pass text-pass' : demoGrade === 'F' ? 'border-fail text-fail' : 'border-signal text-signal'}`}>
@@ -155,6 +177,23 @@ export function SplashPage({ onEnter }: { onEnter: () => void }) {
       </section>
 
       <section className="py-14">
+        <p className="font-mono text-xs uppercase tracking-widest text-zinc-400">All 10 sections</p>
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {SECTIONS.map((section) => (
+            <li
+              key={section.id}
+              className="flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-1.5 text-sm text-zinc-300"
+            >
+              <span className="font-mono text-xs tabular-nums text-signal">
+                {String(section.num).padStart(2, '0')}
+              </span>
+              {section.title}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="py-14">
         <h2 className="text-xl font-semibold text-zinc-50">What it covers</h2>
         <p className="mt-4 text-zinc-400">
           Quick pass for a fast screening. Full pass for a 30-45 minute bench inspection.
@@ -167,6 +206,27 @@ export function SplashPage({ onEnter }: { onEnter: () => void }) {
             >
               <h3 className="text-sm font-semibold text-zinc-100">{c.title}</h3>
               <p className="mt-2 text-sm text-zinc-400">{c.body}</p>
+              {c.title === 'Keyboard test' && (
+                <div className="mt-4">
+                  <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
+                    Try it - press a key
+                  </p>
+                  <div className="mt-2 flex gap-2">
+                    {TRY_KEYS.map((key) => (
+                      <span
+                        key={key}
+                        className={`grid h-9 min-w-9 place-items-center rounded-lg border px-2 font-mono text-[11px] transition-all duration-100 ${
+                          pressed === key
+                            ? 'translate-y-px border-signal bg-signal/15 text-signal'
+                            : 'border-zinc-700 bg-zinc-900 text-zinc-400'
+                        }`}
+                      >
+                        {key.toUpperCase()}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
               {c.title === 'Display test' && (
                 <div className="mt-4">
                   <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
