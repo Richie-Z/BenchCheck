@@ -44,7 +44,7 @@ pipeline {
     stage('build image & push') {
       agent { label 'buildah' }
       environment {
-        TAG = env.GIT_COMMIT?.take(7) ?: 'latest'
+        TAG = "${env.GIT_COMMIT?.take(7) ?: 'latest'}"
       }
       stages {
         stage('build image') {
