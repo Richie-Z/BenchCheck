@@ -32,13 +32,6 @@ pipeline {
             }
           }
         }
-        stage('build') {
-          steps {
-            container('bun') {
-              sh 'bun run build'
-            }
-          }
-        }
       }
     }
     stage('build image & push') {
