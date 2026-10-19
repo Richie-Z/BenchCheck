@@ -1,0 +1,1108 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "592dac5e2853eec8a56c008384eaf424a7fa77fb",
+  "generatedAt": "2026-10-19T08:31:29.553Z",
+  "files": {
+    ".dockerignore": {
+      "filePath": ".dockerignore",
+      "contentHash": "750b0be2ad8ac6cd035a9f4d05ec430b97419e8c3450722c4c3e0d9c228ae600",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": false
+    },
+    ".impeccable/config.json": {
+      "filePath": ".impeccable/config.json",
+      "contentHash": "29f35c1af71396b2845a0de850779a0f55a482a274856985e34e1b0d99ca5971",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": false
+    },
+    ".impeccable/critique/2026-10-09T07-27-54Z__src-pages-checklistpage-tsx.md": {
+      "filePath": ".impeccable/critique/2026-10-09T07-27-54Z__src-pages-checklistpage-tsx.md",
+      "contentHash": "48a7e79b2310b60155f453b6bd606fbda19c89d71c0873a54ccd0d012fc71fa6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 88,
+      "hasStructuralAnalysis": false
+    },
+    ".impeccable/critique/2026-10-09T07-27-54Z__src-pages-displaytestpage-tsx.md": {
+      "filePath": ".impeccable/critique/2026-10-09T07-27-54Z__src-pages-displaytestpage-tsx.md",
+      "contentHash": "839c5c0fa518390ce3e815d4ca8ff1234d7476d12e0ba4cb4848caa287793ebf",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 88,
+      "hasStructuralAnalysis": false
+    },
+    ".impeccable/critique/2026-10-09T07-27-54Z__src-pages-keyboardtestpage-tsx.md": {
+      "filePath": ".impeccable/critique/2026-10-09T07-27-54Z__src-pages-keyboardtestpage-tsx.md",
+      "contentHash": "097ee081eac991faa34f4ed162ac72f85b090e5a231d5604872ecdec6719a888",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 88,
+      "hasStructuralAnalysis": false
+    },
+    ".impeccable/critique/2026-10-09T07-27-54Z__src-pages-splashpage-tsx.md": {
+      "filePath": ".impeccable/critique/2026-10-09T07-27-54Z__src-pages-splashpage-tsx.md",
+      "contentHash": "2bc6b44940712ecae53f0f13af2fd90b497a4934ebc0c9fd7be135d4ac05b149",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 88,
+      "hasStructuralAnalysis": false
+    },
+    ".oxlintrc.json": {
+      "filePath": ".oxlintrc.json",
+      "contentHash": "b4d344818a1e1bf43997e4744a9153c8eef770c98b58229cd86363dabb85ded4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": false
+    },
+    "AGENTS.md": {
+      "filePath": "AGENTS.md",
+      "contentHash": "06738ee67de6399f6285471e879e64ea6bd3069d111d28a7c278be94566f8bbc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 82,
+      "hasStructuralAnalysis": false
+    },
+    "Dockerfile": {
+      "filePath": "Dockerfile",
+      "contentHash": "df408e221b61d4b27199e32a9c9e8289d991644f549b49a20b0401b211423c0a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 24,
+      "hasStructuralAnalysis": false
+    },
+    "Jenkinsfile": {
+      "filePath": "Jenkinsfile",
+      "contentHash": "304d925f3bca8612d62ba9471b1b8dc0f026a5699b018e4d56612218ce9dcb63",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 72,
+      "hasStructuralAnalysis": false
+    },
+    "PRODUCT.md": {
+      "filePath": "PRODUCT.md",
+      "contentHash": "de882793c5a9fa6ef09078f71f2148ededbc9e9f255e76c452b3d631500d6f12",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 85,
+      "hasStructuralAnalysis": false
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "fa8aac78b8be1993010b57f41000a243ecba006f6731513fe4ec91e788bf2517",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 33,
+      "hasStructuralAnalysis": false
+    },
+    "index.html": {
+      "filePath": "index.html",
+      "contentHash": "3f09179ba7c16de95abc46f4956843904b4f69fbe5bf06e1c75c3d13baa45f12",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 52,
+      "hasStructuralAnalysis": false
+    },
+    "jenkins-test.txt": {
+      "filePath": "jenkins-test.txt",
+      "contentHash": "2c114b006d2dd542d78d4c7384aebcb80db286b53a8f65d119f19e7569f64f9d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": false
+    },
+    "package.json": {
+      "filePath": "package.json",
+      "contentHash": "c27bd256e8258d9c1fec7073f55a3c9608d8a4db3ff27759778fd142fbc69bfd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 32,
+      "hasStructuralAnalysis": false
+    },
+    "src/App.tsx": {
+      "filePath": "src/App.tsx",
+      "contentHash": "b11d33e87c10d76e1f27c34fe5c250e5867393571f661c020b0549a930763945",
+      "functions": [
+        {
+          "name": "LogoMark",
+          "params": [
+            "{ className }"
+          ],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "Header",
+          "params": [
+            "{ tab, onTab }"
+          ],
+          "exported": false,
+          "lineCount": 63
+        },
+        {
+          "name": "Shell",
+          "params": [],
+          "exported": false,
+          "lineCount": 28
+        },
+        {
+          "name": "App",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "source": "@phosphor-icons/react",
+          "specifiers": [
+            "GithubLogo"
+          ]
+        },
+        {
+          "source": "./store",
+          "specifiers": [
+            "ChecklistProvider",
+            "useChecklist"
+          ]
+        },
+        {
+          "source": "./pages/ChecklistPage",
+          "specifiers": [
+            "ChecklistPage"
+          ]
+        },
+        {
+          "source": "./pages/DisplayTestPage",
+          "specifiers": [
+            "DisplayTestPage"
+          ]
+        },
+        {
+          "source": "./pages/KeyboardTestPage",
+          "specifiers": [
+            "KeyboardTestPage"
+          ]
+        },
+        {
+          "source": "./components/checklist/PrintReport",
+          "specifiers": [
+            "PrintReport"
+          ]
+        },
+        {
+          "source": "./pages/SplashPage",
+          "specifiers": [
+            "SplashPage"
+          ]
+        }
+      ],
+      "exports": [
+        "LogoMark",
+        "App"
+      ],
+      "totalLines": 138,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/checklist/FailuresPanel.tsx": {
+      "filePath": "src/components/checklist/FailuresPanel.tsx",
+      "contentHash": "eea38d6f8e1a9a5e6cb514fcbaaee380c6062daaa3a527938898df3b702d87fb",
+      "functions": [
+        {
+          "name": "FailuresPanel",
+          "params": [],
+          "exported": true,
+          "lineCount": 46
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@phosphor-icons/react",
+          "specifiers": [
+            "Flag"
+          ]
+        },
+        {
+          "source": "react",
+          "specifiers": [
+            "CSSProperties"
+          ]
+        },
+        {
+          "source": "../../data/checklist",
+          "specifiers": [
+            "SECTIONS"
+          ]
+        },
+        {
+          "source": "../../store",
+          "specifiers": [
+            "useChecklist"
+          ]
+        }
+      ],
+      "exports": [
+        "FailuresPanel"
+      ],
+      "totalLines": 52,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/checklist/ItemRow.tsx": {
+      "filePath": "src/components/checklist/ItemRow.tsx",
+      "contentHash": "348c401571795dcd530f2e77ac30e45d7a620a621e3a2f89d1e9f830bd904ef8",
+      "functions": [
+        {
+          "name": "ItemRow",
+          "params": [
+            "{ item, step, i }"
+          ],
+          "exported": true,
+          "lineCount": 101
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@phosphor-icons/react",
+          "specifiers": [
+            "Check",
+            "Flag"
+          ]
+        },
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useRef",
+            "CSSProperties"
+          ]
+        },
+        {
+          "source": "../../store",
+          "specifiers": [
+            "useChecklist"
+          ]
+        },
+        {
+          "source": "../../types",
+          "specifiers": [
+            "CheckItem"
+          ]
+        }
+      ],
+      "exports": [
+        "ItemRow"
+      ],
+      "totalLines": 107,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/checklist/PrintReport.tsx": {
+      "filePath": "src/components/checklist/PrintReport.tsx",
+      "contentHash": "a7444f22ddc1c918fb86019b980a274e8c5e3a10fa94393a9e739bce12b93f67",
+      "functions": [
+        {
+          "name": "today",
+          "params": [],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "PrintReport",
+          "params": [],
+          "exported": true,
+          "lineCount": 63
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "source": "../../data/checklist",
+          "specifiers": [
+            "SECTIONS"
+          ]
+        },
+        {
+          "source": "../../store",
+          "specifiers": [
+            "useChecklist"
+          ]
+        },
+        {
+          "source": "../../types",
+          "specifiers": [
+            "CheckSection"
+          ]
+        },
+        {
+          "source": "./SummaryBar",
+          "specifiers": [
+            "gradeOf"
+          ]
+        }
+      ],
+      "exports": [
+        "PrintReport"
+      ],
+      "totalLines": 77,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/checklist/SectionBand.tsx": {
+      "filePath": "src/components/checklist/SectionBand.tsx",
+      "contentHash": "3d8572179bebc32a079409ffcd6d961ee9309875683dccba619bbc0957344bb4",
+      "functions": [
+        {
+          "name": "SectionBand",
+          "params": [
+            "{\n  title,\n  items,\n  index,\n  id,\n  num,\n  icon: Icon,\n  note,\n  quick = false,\n}"
+          ],
+          "exported": true,
+          "lineCount": 58
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "CSSProperties"
+          ]
+        },
+        {
+          "source": "../../store",
+          "specifiers": [
+            "useChecklist"
+          ]
+        },
+        {
+          "source": "../../types",
+          "specifiers": [
+            "CheckItem",
+            "SectionIcon"
+          ]
+        },
+        {
+          "source": "./ItemRow",
+          "specifiers": [
+            "ItemRow"
+          ]
+        }
+      ],
+      "exports": [
+        "SectionBand"
+      ],
+      "totalLines": 75,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/checklist/SectionRail.tsx": {
+      "filePath": "src/components/checklist/SectionRail.tsx",
+      "contentHash": "6233bf699401ef7411c0584f9eb285ad3bd2abc4dba1ae6b79d31aae87572f2e",
+      "functions": [
+        {
+          "name": "sectionState",
+          "params": [
+            "statuses",
+            "section"
+          ],
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "pad",
+          "params": [
+            "num"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "SectionRail",
+          "params": [
+            "{ sections }"
+          ],
+          "exported": true,
+          "lineCount": 41
+        },
+        {
+          "name": "SectionRailMobile",
+          "params": [
+            "{ sections }"
+          ],
+          "exported": true,
+          "lineCount": 34
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "CSSProperties"
+          ]
+        },
+        {
+          "source": "../../store",
+          "specifiers": [
+            "useChecklist"
+          ]
+        },
+        {
+          "source": "../../types",
+          "specifiers": [
+            "CheckSection",
+            "StatusMap"
+          ]
+        }
+      ],
+      "exports": [
+        "SectionRail",
+        "SectionRailMobile"
+      ],
+      "totalLines": 106,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/checklist/SummaryBar.tsx": {
+      "filePath": "src/components/checklist/SummaryBar.tsx",
+      "contentHash": "2fdbf3c8e04e564467f62f073c173b2659b48f2c7b0230fd410f7d01f26f9503",
+      "functions": [
+        {
+          "name": "Stat",
+          "params": [
+            "{ value, label, className }"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "gradeOf",
+          "params": [
+            "done",
+            "total",
+            "fail"
+          ],
+          "returnType": "'A' | 'B' | 'C' | 'D' | 'F' | null",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "SummaryBar",
+          "params": [],
+          "exported": true,
+          "lineCount": 142
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useRef",
+            "useState",
+            "CSSProperties"
+          ]
+        },
+        {
+          "source": "../../store",
+          "specifiers": [
+            "useChecklist"
+          ]
+        },
+        {
+          "source": "../../App",
+          "specifiers": [
+            "LogoMark"
+          ]
+        }
+      ],
+      "exports": [
+        "gradeOf",
+        "SummaryBar"
+      ],
+      "totalLines": 171,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/tools/keyboardLayout.ts": {
+      "filePath": "src/components/tools/keyboardLayout.ts",
+      "contentHash": "d23b015476b487f320b7ad391752ec3a50276288b01327faf78aaff0e8785365",
+      "functions": [
+        {
+          "name": "letters",
+          "params": [
+            "chars"
+          ],
+          "returnType": "KeyDef[]",
+          "exported": false,
+          "lineCount": 2
+        },
+        {
+          "name": "digits",
+          "params": [
+            "chars"
+          ],
+          "returnType": "KeyDef[]",
+          "exported": false,
+          "lineCount": 2
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../../types",
+          "specifiers": [
+            "SectionIcon"
+          ]
+        },
+        {
+          "source": "@phosphor-icons/react",
+          "specifiers": [
+            "MicrophoneSlash",
+            "Monitor",
+            "SpeakerHigh",
+            "SpeakerLow",
+            "SpeakerX",
+            "Star",
+            "Sun",
+            "SunDim",
+            "WifiHigh"
+          ]
+        }
+      ],
+      "exports": [
+        "KEYBOARD_ROWS",
+        "ARROWS_CLUSTER",
+        "TOTAL_KEYS"
+      ],
+      "totalLines": 128,
+      "hasStructuralAnalysis": true
+    },
+    "src/data/checklist.ts": {
+      "filePath": "src/data/checklist.ts",
+      "contentHash": "b551e44dc380cacea64fe5e419fdae7d5bcda3de63aef9db563a2d9153fb1020",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@phosphor-icons/react",
+          "specifiers": [
+            "BatteryCharging",
+            "Cpu",
+            "Gear",
+            "Keyboard",
+            "Monitor",
+            "Plugs",
+            "ShieldCheck",
+            "SpeakerHigh",
+            "Thermometer",
+            "WifiHigh"
+          ]
+        },
+        {
+          "source": "../types",
+          "specifiers": [
+            "CheckItem",
+            "CheckSection"
+          ]
+        }
+      ],
+      "exports": [
+        "SECTIONS",
+        "TOTAL_ITEMS",
+        "QUICK_ITEMS"
+      ],
+      "totalLines": 275,
+      "hasStructuralAnalysis": true
+    },
+    "src/index.css": {
+      "filePath": "src/index.css",
+      "contentHash": "0c6914a50c82e89ccd9fccb949bd97f79fec9f0ad5564aec972c74c96b42a957",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 147,
+      "hasStructuralAnalysis": false
+    },
+    "src/main.tsx": {
+      "filePath": "src/main.tsx",
+      "contentHash": "dfd1be5ecb7ea87ba0748917e704cc08dbdb4ac5cdd6862500a9ededb07c9d2e",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@fontsource-variable/geist",
+          "specifiers": []
+        },
+        {
+          "source": "@fontsource-variable/geist-mono",
+          "specifiers": []
+        },
+        {
+          "source": "react",
+          "specifiers": [
+            "StrictMode"
+          ]
+        },
+        {
+          "source": "react-dom/client",
+          "specifiers": [
+            "createRoot"
+          ]
+        },
+        {
+          "source": "./index.css",
+          "specifiers": []
+        },
+        {
+          "source": "./App.tsx",
+          "specifiers": [
+            "App"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "src/pages/ChecklistPage.tsx": {
+      "filePath": "src/pages/ChecklistPage.tsx",
+      "contentHash": "b9209d28516e8e378d453226fef8739cba3feadb97da5342e788b7411ee0966f",
+      "functions": [
+        {
+          "name": "EmptyState",
+          "params": [],
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "ChecklistPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 159
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@phosphor-icons/react",
+          "specifiers": [
+            "ClipboardText",
+            "Lightning",
+            "Printer"
+          ]
+        },
+        {
+          "source": "react",
+          "specifiers": [
+            "useMemo",
+            "CSSProperties"
+          ]
+        },
+        {
+          "source": "../components/checklist/FailuresPanel",
+          "specifiers": [
+            "FailuresPanel"
+          ]
+        },
+        {
+          "source": "../components/checklist/SectionBand",
+          "specifiers": [
+            "SectionBand"
+          ]
+        },
+        {
+          "source": "../components/checklist/SectionRail",
+          "specifiers": [
+            "SectionRail",
+            "SectionRailMobile"
+          ]
+        },
+        {
+          "source": "../components/checklist/SummaryBar",
+          "specifiers": [
+            "SummaryBar"
+          ]
+        },
+        {
+          "source": "../data/checklist",
+          "specifiers": [
+            "QUICK_ITEMS",
+            "SECTIONS"
+          ]
+        },
+        {
+          "source": "../store",
+          "specifiers": [
+            "useChecklist"
+          ]
+        }
+      ],
+      "exports": [
+        "ChecklistPage"
+      ],
+      "totalLines": 205,
+      "hasStructuralAnalysis": true
+    },
+    "src/pages/DisplayTestPage.tsx": {
+      "filePath": "src/pages/DisplayTestPage.tsx",
+      "contentHash": "dd36b2f82bdce64934bd9495b7b778fcda97726a19cd34d44f5cdefdf04f6043",
+      "functions": [
+        {
+          "name": "FullscreenTest",
+          "params": [
+            "{\n  startIndex,\n  onExit,\n}"
+          ],
+          "exported": false,
+          "lineCount": 109
+        },
+        {
+          "name": "DisplayTestPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 71
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useCallback",
+            "useEffect",
+            "useRef",
+            "useState"
+          ]
+        }
+      ],
+      "exports": [
+        "DisplayTestPage"
+      ],
+      "totalLines": 204,
+      "hasStructuralAnalysis": true
+    },
+    "src/pages/KeyboardTestPage.tsx": {
+      "filePath": "src/pages/KeyboardTestPage.tsx",
+      "contentHash": "61778a6cc84b4c331245d7be7d2a2a039758c05f8882b138638e08931805c679",
+      "functions": [
+        {
+          "name": "Key",
+          "params": [
+            "{ def, state }"
+          ],
+          "exported": false,
+          "lineCount": 38
+        },
+        {
+          "name": "Touchpad",
+          "params": [
+            "{\n  seen,\n  held,\n  buttons,\n  buttonHeld,\n  onPadDown,\n  onPadUp,\n  onButton,\n}"
+          ],
+          "exported": false,
+          "lineCount": 67
+        },
+        {
+          "name": "KeyboardTestPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 181
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@phosphor-icons/react",
+          "specifiers": [
+            "ArrowCounterClockwise"
+          ]
+        },
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useRef",
+            "useState"
+          ]
+        },
+        {
+          "source": "../components/tools/keyboardLayout",
+          "specifiers": [
+            "ARROWS_CLUSTER",
+            "KEYBOARD_ROWS",
+            "TOTAL_KEYS",
+            "KeyDef"
+          ]
+        }
+      ],
+      "exports": [
+        "KeyboardTestPage"
+      ],
+      "totalLines": 315,
+      "hasStructuralAnalysis": true
+    },
+    "src/pages/SplashPage.tsx": {
+      "filePath": "src/pages/SplashPage.tsx",
+      "contentHash": "b28c30637d67f5307363c7225cbe80754e1bf5ed8ff3a666dc599d359e6aa716",
+      "functions": [
+        {
+          "name": "SplashPage",
+          "params": [
+            "{ onEnter }"
+          ],
+          "exported": true,
+          "lineCount": 251
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "source": "@phosphor-icons/react",
+          "specifiers": [
+            "ArrowRight",
+            "GithubLogo"
+          ]
+        },
+        {
+          "source": "../App",
+          "specifiers": [
+            "LogoMark"
+          ]
+        },
+        {
+          "source": "../data/checklist",
+          "specifiers": [
+            "SECTIONS"
+          ]
+        }
+      ],
+      "exports": [
+        "SplashPage"
+      ],
+      "totalLines": 307,
+      "hasStructuralAnalysis": true
+    },
+    "src/store.tsx": {
+      "filePath": "src/store.tsx",
+      "contentHash": "f2cbce773cc1f401f5cd324cfd24c844133cc137cb72a91cfb830284eebb005d",
+      "functions": [
+        {
+          "name": "loadStatuses",
+          "params": [],
+          "returnType": "StatusMap",
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "loadQuickStatuses",
+          "params": [],
+          "returnType": "StatusMap",
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "loadReasons",
+          "params": [],
+          "returnType": "Record<string, string>",
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "loadQuickReasons",
+          "params": [],
+          "returnType": "Record<string, string>",
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "loadMeta",
+          "params": [],
+          "returnType": "{ model: string }",
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "ChecklistProvider",
+          "params": [
+            "{ children }"
+          ],
+          "exported": true,
+          "lineCount": 162
+        },
+        {
+          "name": "useChecklist",
+          "params": [],
+          "returnType": "ChecklistApi",
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "createContext",
+            "useCallback",
+            "useContext",
+            "useEffect",
+            "useMemo",
+            "useState",
+            "ReactNode"
+          ]
+        },
+        {
+          "source": "./data/checklist",
+          "specifiers": [
+            "QUICK_ITEMS",
+            "SECTIONS",
+            "TOTAL_ITEMS"
+          ]
+        },
+        {
+          "source": "./types",
+          "specifiers": [
+            "ItemStatus",
+            "StatusMap"
+          ]
+        }
+      ],
+      "exports": [
+        "ChecklistProvider",
+        "useChecklist"
+      ],
+      "totalLines": 281,
+      "hasStructuralAnalysis": true
+    },
+    "src/types.ts": {
+      "filePath": "src/types.ts",
+      "contentHash": "a677790606766ef6caff70fa3eddba789d6c97d2d3522cb5967bad4c40c40b60",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "ComponentType"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "tsconfig.app.json": {
+      "filePath": "tsconfig.app.json",
+      "contentHash": "8e5d12ba330e7d86409edec74b95451e0db22ee09b9426c94b5bf817571eddb0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 27,
+      "hasStructuralAnalysis": false
+    },
+    "tsconfig.json": {
+      "filePath": "tsconfig.json",
+      "contentHash": "770b4140bbb581e2dfd9ea9946ffc9c75a1d86ba7d2db5f77c83e37cbdf9d808",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": false
+    },
+    "tsconfig.node.json": {
+      "filePath": "tsconfig.node.json",
+      "contentHash": "d366cc0827139db39c61815f22491bbfda56c654354a42ad7795143d314e45e8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 24,
+      "hasStructuralAnalysis": false
+    },
+    "vite.config.ts": {
+      "filePath": "vite.config.ts",
+      "contentHash": "8e65989940355f1ca24c827c08d338f712af14802ad962a2a61088bf8525e355",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@tailwindcss/vite",
+          "specifiers": [
+            "tailwindcss"
+          ]
+        },
+        {
+          "source": "@vitejs/plugin-react",
+          "specifiers": [
+            "react"
+          ]
+        },
+        {
+          "source": "vite",
+          "specifiers": [
+            "defineConfig"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

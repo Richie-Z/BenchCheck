@@ -1,0 +1,2460 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "laptop-test-checklist",
+    "languages": [
+      "css",
+      "dockerfile",
+      "html",
+      "jenkinsfile",
+      "json",
+      "markdown",
+      "text",
+      "typescript"
+    ],
+    "frameworks": [
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "Docker",
+      "Jenkins"
+    ],
+    "description": "BenchCheck is a structured inspection checklist for second-hand laptops. It turns an ad-hoc looks-fine decision into an ordered set of verifiable checks, so defects surface before money changes hands, with offline display and keyboard tests built in.",
+    "analyzedAt": "2026-10-19T08:30:59.279Z",
+    "gitCommitHash": "592dac5e2853eec8a56c008384eaf424a7fa77fb"
+  },
+  "nodes": [
+    {
+      "id": "file:src/App.tsx",
+      "type": "file",
+      "name": "App.tsx",
+      "filePath": "src/App.tsx",
+      "summary": "Application shell that owns the active tab state, renders the sticky header and tab navigation, mounts the checklist provider, and swaps between splash, checklist, display test, and keyboard test views.",
+      "tags": [
+        "entry-point",
+        "component",
+        "layout",
+        "navigation",
+        "state"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Tab union type plus conditional rendering; LogoMark is exported for reuse in SummaryBar and SplashPage."
+    },
+    {
+      "id": "function:src/App.tsx:LogoMark",
+      "type": "function",
+      "name": "LogoMark",
+      "filePath": "src/App.tsx",
+      "lineRange": [
+        18,
+        36
+      ],
+      "summary": "Exported SVG logo component showing the BenchCheck frame-break mark, colored through currentColor and sized by className.",
+      "tags": [
+        "component",
+        "icon",
+        "branding",
+        "exports"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/App.tsx:Header",
+      "type": "function",
+      "name": "Header",
+      "filePath": "src/App.tsx",
+      "lineRange": [
+        38,
+        100
+      ],
+      "summary": "Sticky header with logo button returning to splash, tab navigation for checklist and test views, live done/total and failure counters, and the GitHub link.",
+      "tags": [
+        "component",
+        "navigation",
+        "header",
+        "counts"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/App.tsx:Shell",
+      "type": "function",
+      "name": "Shell",
+      "filePath": "src/App.tsx",
+      "lineRange": [
+        102,
+        129
+      ],
+      "summary": "Layout component holding tab state, resetting scroll on tab change, rendering the skip link and header, and mounting the active page plus the hidden print report.",
+      "tags": [
+        "component",
+        "layout",
+        "state",
+        "routing"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/App.tsx:App",
+      "type": "function",
+      "name": "App",
+      "filePath": "src/App.tsx",
+      "lineRange": [
+        131,
+        137
+      ],
+      "summary": "Default export that wraps the Shell in ChecklistProvider to supply shared checklist state.",
+      "tags": [
+        "entry-point",
+        "component",
+        "provider",
+        "exports"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/checklist/PrintReport.tsx",
+      "type": "file",
+      "name": "PrintReport.tsx",
+      "filePath": "src/components/checklist/PrintReport.tsx",
+      "summary": "Hidden print-only article that renders the full or quick inspection report with per-item markers, failure reasons, date stamp, and overall grade.",
+      "tags": [
+        "component",
+        "reporting",
+        "print",
+        "checklist"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/checklist/PrintReport.tsx:PrintReport",
+      "type": "function",
+      "name": "PrintReport",
+      "filePath": "src/components/checklist/PrintReport.tsx",
+      "lineRange": [
+        14,
+        76
+      ],
+      "summary": "Builds the printable report from checklist state, filtering sections to priority items in quick mode, stamping the date on beforeprint, and emitting pass/fail/pending markers with reasons.",
+      "tags": [
+        "component",
+        "reporting",
+        "print",
+        "exports"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/checklist/SummaryBar.tsx",
+      "type": "file",
+      "name": "SummaryBar.tsx",
+      "filePath": "src/components/checklist/SummaryBar.tsx",
+      "summary": "Progress summary card showing done/total, pass/fail/remaining stats, completion bar, two-step reset confirmation, and a rubber-stamp grade seal once every check is done.",
+      "tags": [
+        "component",
+        "summary",
+        "progress",
+        "grading",
+        "checklist"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Grade seal is absolutely positioned off the card corner and animated through the bc-stamp-press CSS class."
+    },
+    {
+      "id": "function:src/components/checklist/SummaryBar.tsx:Stat",
+      "type": "function",
+      "name": "Stat",
+      "filePath": "src/components/checklist/SummaryBar.tsx",
+      "lineRange": [
+        5,
+        14
+      ],
+      "summary": "Small presentational component rendering a mono numeric value above its label with a caller-supplied color class.",
+      "tags": [
+        "component",
+        "stat",
+        "presentational"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/checklist/SummaryBar.tsx:gradeOf",
+      "type": "function",
+      "name": "gradeOf",
+      "filePath": "src/components/checklist/SummaryBar.tsx",
+      "lineRange": [
+        16,
+        27
+      ],
+      "summary": "Exported grade calculator that returns A-F only when all checks are done, based on failure count thresholds.",
+      "tags": [
+        "grading",
+        "utility",
+        "exports",
+        "checklist"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/checklist/SummaryBar.tsx:SummaryBar",
+      "type": "function",
+      "name": "SummaryBar",
+      "filePath": "src/components/checklist/SummaryBar.tsx",
+      "lineRange": [
+        29,
+        170
+      ],
+      "summary": "Reads checklist counts from context and renders the summary card: counters, reset confirmation with timeout, completion progress bar, all-passed/all-failed pills, and the grade stamp.",
+      "tags": [
+        "component",
+        "summary",
+        "progress",
+        "state",
+        "exports"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/main.tsx",
+      "type": "file",
+      "name": "main.tsx",
+      "filePath": "src/main.tsx",
+      "summary": "Browser entry point that imports the Geist fonts and global stylesheet, then mounts the App into the root element inside StrictMode.",
+      "tags": [
+        "entry-point",
+        "bootstrap",
+        "react-dom"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/pages/DisplayTestPage.tsx",
+      "type": "file",
+      "name": "DisplayTestPage.tsx",
+      "filePath": "src/pages/DisplayTestPage.tsx",
+      "summary": "Display inspection page describing pixel and backlight defects and launching a fullscreen color-surface test with keyboard and on-screen controls.",
+      "tags": [
+        "component",
+        "page",
+        "display-test",
+        "fullscreen",
+        "hardware"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Test surfaces use pure white, black, red, green, and blue as the only non-theme colors; controls auto-hide after 2 seconds of inactivity."
+    },
+    {
+      "id": "function:src/pages/DisplayTestPage.tsx:FullscreenTest",
+      "type": "function",
+      "name": "FullscreenTest",
+      "filePath": "src/pages/DisplayTestPage.tsx",
+      "lineRange": [
+        23,
+        131
+      ],
+      "summary": "Fullscreen overlay cycling color surfaces, handling 1-5 selection, arrow/space cycling, Escape exit, mouse-driven control reveal, and body scroll locking.",
+      "tags": [
+        "component",
+        "fullscreen",
+        "display-test",
+        "keyboard-handler",
+        "effects"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/pages/DisplayTestPage.tsx:DisplayTestPage",
+      "type": "function",
+      "name": "DisplayTestPage",
+      "filePath": "src/pages/DisplayTestPage.tsx",
+      "lineRange": [
+        133,
+        203
+      ],
+      "summary": "Page component listing what to look for on each color surface and providing surface swatches plus a start button that opens the fullscreen test.",
+      "tags": [
+        "component",
+        "page",
+        "display-test",
+        "exports"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/pages/SplashPage.tsx",
+      "type": "file",
+      "name": "SplashPage.tsx",
+      "filePath": "src/pages/SplashPage.tsx",
+      "summary": "One-time landing page telling the BenchCheck story, with an interactive demo checklist, key-press preview, color-pattern preview, stats, section list, and call to action.",
+      "tags": [
+        "component",
+        "page",
+        "landing",
+        "interactive-demo",
+        "onboarding"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Interactive demo state cycles each row through pending/pass/fail; keyboard listeners mirror the real key-test preview."
+    },
+    {
+      "id": "function:src/pages/SplashPage.tsx:SplashPage",
+      "type": "function",
+      "name": "SplashPage",
+      "filePath": "src/pages/SplashPage.tsx",
+      "lineRange": [
+        56,
+        306
+      ],
+      "summary": "Renders the marketing and onboarding landing view, managing demo row states, pressed-key feedback, and the fullscreen color-pattern preview before entering the checklist.",
+      "tags": [
+        "component",
+        "landing",
+        "interactive-demo",
+        "state",
+        "exports"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/components/checklist/ItemRow.tsx",
+      "type": "file",
+      "name": "ItemRow.tsx",
+      "filePath": "src/components/checklist/ItemRow.tsx",
+      "summary": "Renders a single checklist item as a tri-state checkbox row (pending, pass, fail) and reveals an inline failure-reason input when the item fails.",
+      "tags": [
+        "component",
+        "checklist",
+        "ui",
+        "event-handler"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/checklist/SectionBand.tsx",
+      "type": "file",
+      "name": "SectionBand.tsx",
+      "filePath": "src/components/checklist/SectionBand.tsx",
+      "summary": "Renders one checklist section header with progress count and maps its items into ItemRow components, with a compact variant for quick mode.",
+      "tags": [
+        "component",
+        "checklist",
+        "ui",
+        "layout"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/checklist/SectionRail.tsx",
+      "type": "file",
+      "name": "SectionRail.tsx",
+      "filePath": "src/components/checklist/SectionRail.tsx",
+      "summary": "Provides desktop sticky and mobile horizontal section navigation with per-section done/total counts color-coded by completion state.",
+      "tags": [
+        "component",
+        "navigation",
+        "checklist",
+        "ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/store.tsx",
+      "type": "file",
+      "name": "store.tsx",
+      "filePath": "src/store.tsx",
+      "summary": "React context store holding checklist state for full and quick modes, persisting statuses, reasons, and laptop metadata to localStorage and exposing derived counts.",
+      "tags": [
+        "state-management",
+        "context",
+        "persistence",
+        "hook",
+        "data-model"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Uses React context plus useCallback/useMemo to keep provider value stable; localStorage loaders guard JSON.parse with structural checks."
+    },
+    {
+      "id": "file:src/types.ts",
+      "type": "file",
+      "name": "types.ts",
+      "filePath": "src/types.ts",
+      "summary": "Defines shared domain types for checklist sections, items, statuses, and the icon component contract used across the app.",
+      "tags": [
+        "type-definition",
+        "types",
+        "data-model",
+        "shared"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/checklist/ItemRow.tsx:ItemRow",
+      "type": "function",
+      "name": "ItemRow",
+      "filePath": "src/components/checklist/ItemRow.tsx",
+      "lineRange": [
+        6,
+        106
+      ],
+      "summary": "Checklist row component that cycles an item's status on click, focuses the reason field when an item fails, and clears the reason when it stops failing.",
+      "tags": [
+        "component",
+        "checklist",
+        "event-handler",
+        "accessibility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/checklist/SectionBand.tsx:SectionBand",
+      "type": "function",
+      "name": "SectionBand",
+      "filePath": "src/components/checklist/SectionBand.tsx",
+      "lineRange": [
+        17,
+        74
+      ],
+      "summary": "Section container that counts completed items, renders optional numbered header and note, and lists item rows with staggered entrance indices.",
+      "tags": [
+        "component",
+        "checklist",
+        "layout",
+        "ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/checklist/SectionRail.tsx:sectionState",
+      "type": "function",
+      "name": "sectionState",
+      "filePath": "src/components/checklist/SectionRail.tsx",
+      "lineRange": [
+        5,
+        26
+      ],
+      "summary": "Aggregates a section's item statuses into done/total counts and picks the text tone for untouched, all-pass, all-fail, or mixed progress.",
+      "tags": [
+        "utility",
+        "aggregation",
+        "checklist",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/checklist/SectionRail.tsx:SectionRail",
+      "type": "function",
+      "name": "SectionRail",
+      "filePath": "src/components/checklist/SectionRail.tsx",
+      "lineRange": [
+        30,
+        70
+      ],
+      "summary": "Desktop sticky sidebar listing every section with its number, title, and progress count linking to the section anchor.",
+      "tags": [
+        "component",
+        "navigation",
+        "checklist",
+        "ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/checklist/SectionRail.tsx:SectionRailMobile",
+      "type": "function",
+      "name": "SectionRailMobile",
+      "filePath": "src/components/checklist/SectionRail.tsx",
+      "lineRange": [
+        72,
+        105
+      ],
+      "summary": "Mobile-only horizontally scrollable chip row of section links with the same progress counts as the desktop rail.",
+      "tags": [
+        "component",
+        "navigation",
+        "responsive",
+        "ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/store.tsx:loadStatuses",
+      "type": "function",
+      "name": "loadStatuses",
+      "filePath": "src/store.tsx",
+      "lineRange": [
+        43,
+        55
+      ],
+      "summary": "Reads and validates the full-mode status map from localStorage, returning an empty object on missing or malformed data.",
+      "tags": [
+        "persistence",
+        "localstorage",
+        "validation",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/store.tsx:loadQuickStatuses",
+      "type": "function",
+      "name": "loadQuickStatuses",
+      "filePath": "src/store.tsx",
+      "lineRange": [
+        57,
+        69
+      ],
+      "summary": "Reads and validates the quick-mode status map from localStorage, falling back to an empty object on error.",
+      "tags": [
+        "persistence",
+        "localstorage",
+        "validation",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/store.tsx:loadReasons",
+      "type": "function",
+      "name": "loadReasons",
+      "filePath": "src/store.tsx",
+      "lineRange": [
+        71,
+        83
+      ],
+      "summary": "Reads the full-mode failure reason map from localStorage with shape validation and empty fallback.",
+      "tags": [
+        "persistence",
+        "localstorage",
+        "validation",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/store.tsx:loadQuickReasons",
+      "type": "function",
+      "name": "loadQuickReasons",
+      "filePath": "src/store.tsx",
+      "lineRange": [
+        85,
+        97
+      ],
+      "summary": "Reads the quick-mode failure reason map from localStorage with shape validation and empty fallback.",
+      "tags": [
+        "persistence",
+        "localstorage",
+        "validation",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/store.tsx:loadMeta",
+      "type": "function",
+      "name": "loadMeta",
+      "filePath": "src/store.tsx",
+      "lineRange": [
+        99,
+        111
+      ],
+      "summary": "Loads persisted laptop metadata (model string) from localStorage, returning an empty model when absent or invalid.",
+      "tags": [
+        "persistence",
+        "localstorage",
+        "validation",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/store.tsx:ChecklistProvider",
+      "type": "function",
+      "name": "ChecklistProvider",
+      "filePath": "src/store.tsx",
+      "lineRange": [
+        113,
+        274
+      ],
+      "summary": "Context provider that owns mode-scoped status and reason state, syncs each slice to localStorage, and exposes cycle, setStatus, setReason, reset, and derived counts.",
+      "tags": [
+        "context",
+        "state-management",
+        "persistence",
+        "provider"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/store.tsx:useChecklist",
+      "type": "function",
+      "name": "useChecklist",
+      "filePath": "src/store.tsx",
+      "lineRange": [
+        276,
+        280
+      ],
+      "summary": "Context hook returning the checklist API and throwing a clear error when used outside ChecklistProvider.",
+      "tags": [
+        "hook",
+        "context",
+        "state-management",
+        "api"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/checklist/FailuresPanel.tsx",
+      "type": "file",
+      "name": "FailuresPanel.tsx",
+      "filePath": "src/components/checklist/FailuresPanel.tsx",
+      "summary": "Renders a conditional panel listing every checklist item marked as failed, with its recorded reason and an anchor link to the owning section. Returns null when no item fails.",
+      "tags": [
+        "component",
+        "react",
+        "checklist",
+        "failure-summary",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/checklist/FailuresPanel.tsx:FailuresPanel",
+      "type": "function",
+      "name": "FailuresPanel",
+      "filePath": "src/components/checklist/FailuresPanel.tsx",
+      "lineRange": [
+        6,
+        51
+      ],
+      "summary": "Flattens all sections into the list of failed items from checklist state, then renders a red-tinted failure summary with count badge, reason text and section jump links.",
+      "tags": [
+        "component",
+        "react",
+        "derived-state",
+        "checklist"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/data/checklist.ts",
+      "type": "file",
+      "name": "checklist.ts",
+      "filePath": "src/data/checklist.ts",
+      "summary": "Single source of truth for all checklist content: ten sections with 65 inspection items, section metadata and icons, plus derived item totals and the priority-sorted quick-pass item list.",
+      "tags": [
+        "data-model",
+        "static-data",
+        "checklist-content",
+        "source-of-truth"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Content-only module: exports typed constant arrays and derives QUICK_ITEMS by filtering on an optional numeric priority field."
+    },
+    {
+      "id": "file:src/pages/ChecklistPage.tsx",
+      "type": "file",
+      "name": "ChecklistPage.tsx",
+      "filePath": "src/pages/ChecklistPage.tsx",
+      "summary": "Main checklist view: device model input, summary bar, full/quick mode switch, print action, section rail and section bands, plus the brutalist quick-pass deck and failures panel.",
+      "tags": [
+        "page",
+        "component",
+        "react",
+        "checklist",
+        "entry-view"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Injects page-scoped CSS keyframes via a style tag and gates the quick-pass layout on checklist mode."
+    },
+    {
+      "id": "function:src/pages/ChecklistPage.tsx:EmptyState",
+      "type": "function",
+      "name": "EmptyState",
+      "filePath": "src/pages/ChecklistPage.tsx",
+      "lineRange": [
+        29,
+        44
+      ],
+      "summary": "Renders the empty checklist prompt shown when no item has been checked yet, pointing the user to CrystalDiskInfo and the battery report.",
+      "tags": [
+        "component",
+        "react",
+        "empty-state",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/pages/ChecklistPage.tsx:ChecklistPage",
+      "type": "function",
+      "name": "ChecklistPage",
+      "filePath": "src/pages/ChecklistPage.tsx",
+      "lineRange": [
+        46,
+        204
+      ],
+      "summary": "Consumes checklist state and renders the whole checklist screen, switching between the full section layout and the quick-pass deck, and wiring mode changes, model editing and printing.",
+      "tags": [
+        "component",
+        "react",
+        "page",
+        "mode-switch",
+        "checklist"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "Dockerfile",
+      "summary": "Multi-stage container build that installs dependencies with Bun, builds the Vite app, and serves the static dist output from a distroless image running static-web-server on port 8080.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "deployment",
+        "static-site",
+        "build-system"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Three stages: Bun build stage, static-web-server binary stage, and distroless runtime stage with SERVER_* environment configuration."
+    },
+    {
+      "id": "service:Dockerfile:build",
+      "type": "service",
+      "name": "build",
+      "filePath": "Dockerfile",
+      "summary": "Bun build stage that copies package manifests, installs with a frozen lockfile, copies the source, and runs the production build into /app/dist.",
+      "tags": [
+        "containerization",
+        "build-system",
+        "bun"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:Dockerfile:sws",
+      "type": "service",
+      "name": "sws",
+      "filePath": "Dockerfile",
+      "summary": "Intermediate stage that supplies the static-web-server binary for the final runtime image.",
+      "tags": [
+        "containerization",
+        "static-site",
+        "runtime"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:Dockerfile:static-debian12",
+      "type": "service",
+      "name": "static-debian12",
+      "filePath": "Dockerfile",
+      "summary": "Distroless nonroot runtime stage that copies the static-web-server binary and the built dist directory, then exposes port 8080.",
+      "tags": [
+        "containerization",
+        "runtime",
+        "security",
+        "deployment"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.dockerignore",
+      "type": "config",
+      "name": ".dockerignore",
+      "filePath": ".dockerignore",
+      "summary": "Docker build context exclusions that keep node_modules, dist, git metadata, logs, and markdown out of the image build.",
+      "tags": [
+        "configuration",
+        "containerization",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-checklistpage-tsx.md",
+      "type": "document",
+      "name": "2026-10-09T07-27-54Z__src-pages-checklistpage-tsx.md",
+      "filePath": ".impeccable/critique/2026-10-09T07-27-54Z__src-pages-checklistpage-tsx.md",
+      "summary": "Design critique of ChecklistPage.tsx scoring 28/40 across ten usability heuristics, with priority issues on keyboard trapping, invisible grade output, missing ARIA state, broken quick-pass numbering, and hidden failure aggregation.",
+      "tags": [
+        "documentation",
+        "design-review",
+        "accessibility",
+        "ux-audit"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-displaytestpage-tsx.md",
+      "type": "document",
+      "name": "2026-10-09T07-27-54Z__src-pages-displaytestpage-tsx.md",
+      "filePath": ".impeccable/critique/2026-10-09T07-27-54Z__src-pages-displaytestpage-tsx.md",
+      "summary": "Design critique of DisplayTestPage.tsx scoring 28/40, flagging mobile fullscreen control fade and unreachable exit as persona red flags alongside shared checklist findings.",
+      "tags": [
+        "documentation",
+        "design-review",
+        "accessibility",
+        "mobile-ux"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-keyboardtestpage-tsx.md",
+      "type": "document",
+      "name": "2026-10-09T07-27-54Z__src-pages-keyboardtestpage-tsx.md",
+      "filePath": ".impeccable/critique/2026-10-09T07-27-54Z__src-pages-keyboardtestpage-tsx.md",
+      "summary": "Design critique of KeyboardTestPage.tsx scoring 28/40, centered on the unscoped global Tab suppression that traps keyboard-only users with no escape path.",
+      "tags": [
+        "documentation",
+        "design-review",
+        "accessibility",
+        "keyboard-testing"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-splashpage-tsx.md",
+      "type": "document",
+      "name": "2026-10-09T07-27-54Z__src-pages-splashpage-tsx.md",
+      "filePath": ".impeccable/critique/2026-10-09T07-27-54Z__src-pages-splashpage-tsx.md",
+      "summary": "Design critique of SplashPage.tsx scoring 28/40, noting that the splash reads as a generic SaaS skeleton and repeats the 10 sections and 65 checks three times against the committed voice.",
+      "tags": [
+        "documentation",
+        "design-review",
+        "landing-page",
+        "ux-audit"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:.oxlintrc.json",
+      "type": "config",
+      "name": ".oxlintrc.json",
+      "filePath": ".oxlintrc.json",
+      "summary": "Oxlint configuration enabling React, TypeScript, and Oxc plugins with rules-of-hooks as an error and only-export-components as a warning.",
+      "tags": [
+        "configuration",
+        "linting",
+        "typescript",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "AGENTS.md",
+      "summary": "Project operating guide covering the Bun/React/Tailwind stack, commands, file structure, locked design rules, content rules, headless verification recipe, and parallel agent workflow.",
+      "tags": [
+        "documentation",
+        "development",
+        "conventions",
+        "design-system"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "pipeline:Jenkinsfile",
+      "type": "pipeline",
+      "name": "Jenkinsfile",
+      "filePath": "Jenkinsfile",
+      "summary": "Jenkins declarative pipeline that installs dependencies, runs typecheck and lint on a Bun agent, then builds and pushes a tagged container image with Buildah.",
+      "tags": [
+        "ci-cd",
+        "deployment",
+        "containerization",
+        "jenkins"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Nested stages run inside labeled agents with per-container steps; image tags derive from the first seven characters of GIT_COMMIT."
+    },
+    {
+      "id": "document:PRODUCT.md",
+      "type": "document",
+      "name": "PRODUCT.md",
+      "filePath": "PRODUCT.md",
+      "summary": "Product brief defining the buyer-side inspection use case, positioning, operating context, capabilities, brand commitments, and product principles for BenchCheck.",
+      "tags": [
+        "documentation",
+        "product-spec",
+        "requirements",
+        "branding"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Default Vite React TypeScript template README describing available plugins, the React Compiler opt-in, and how to expand the Oxlint configuration.",
+      "tags": [
+        "documentation",
+        "template",
+        "vite",
+        "linting"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "index.html",
+      "summary": "Vite HTML entry point that mounts the React root, loads src/main.tsx, and carries the full SEO metadata set including Open Graph, Twitter cards, and SoftwareApplication JSON-LD.",
+      "tags": [
+        "entry-point",
+        "markup",
+        "seo",
+        "metadata"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:jenkins-test.txt",
+      "type": "document",
+      "name": "jenkins-test.txt",
+      "filePath": "jenkins-test.txt",
+      "summary": "Single-line placeholder file used to trigger the Jenkins pipeline.",
+      "tags": [
+        "documentation",
+        "ci-cd",
+        "placeholder"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Bun project manifest declaring dev, build, lint, typecheck, and preview scripts plus the React 19, Vite 8, Tailwind 4, Phosphor icons, and Geist font dependencies.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "dependencies",
+        "bun"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:tsconfig.app.json",
+      "type": "config",
+      "name": "tsconfig.app.json",
+      "filePath": "tsconfig.app.json",
+      "summary": "TypeScript configuration for application sources with bundler resolution, react-jsx, strict unused checks, and ES2023 targets over src.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "tsconfig.json",
+      "summary": "Root TypeScript solution file with no sources of its own that references the app and node project configurations.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "project-references"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:tsconfig.node.json",
+      "type": "config",
+      "name": "tsconfig.node.json",
+      "filePath": "tsconfig.node.json",
+      "summary": "TypeScript configuration for the Vite build tooling, using nodenext modules and Node types over vite.config.ts.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.impeccable/config.json",
+      "type": "config",
+      "name": "config.json",
+      "filePath": ".impeccable/config.json",
+      "summary": "Configuration for the impeccable design-review hook, enabling findings with caps of 5 findings and 8000 characters.",
+      "tags": [
+        "configuration",
+        "design-review",
+        "tooling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/tools/keyboardLayout.ts",
+      "type": "file",
+      "name": "keyboardLayout.ts",
+      "filePath": "src/components/tools/keyboardLayout.ts",
+      "summary": "Defines the ThinkPad 6-row US keyboard layout as rows of key definitions plus the arrow cluster and total key count used by the keyboard test page.",
+      "tags": [
+        "data-model",
+        "keyboard",
+        "layout",
+        "constants"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses KeyboardEvent.code values (KeyA, Digit1) so key matching is layout-independent."
+    },
+    {
+      "id": "file:src/index.css",
+      "type": "file",
+      "name": "index.css",
+      "filePath": "src/index.css",
+      "summary": "Tailwind v4 entry stylesheet defining the dark theme tokens, base styles, print report rules, and custom animations for the bolt strike, grade stamp, hazard stripes, and scanlines.",
+      "tags": [
+        "stylesheet",
+        "tailwind",
+        "theme",
+        "animation",
+        "print"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses Tailwind v4 @theme tokens and @layer base instead of a tailwind.config.js."
+    },
+    {
+      "id": "file:src/pages/KeyboardTestPage.tsx",
+      "type": "file",
+      "name": "KeyboardTestPage.tsx",
+      "filePath": "src/pages/KeyboardTestPage.tsx",
+      "summary": "Interactive keyboard and touchpad test page that highlights keys as they register, tracks held state, and reports progress toward the total key count.",
+      "tags": [
+        "component",
+        "page",
+        "keyboard",
+        "event-handler",
+        "interactive-test"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/pages/KeyboardTestPage.tsx:Key",
+      "type": "function",
+      "name": "Key",
+      "filePath": "src/pages/KeyboardTestPage.tsx",
+      "lineRange": [
+        15,
+        52
+      ],
+      "summary": "Renders a single keyboard key with held, seen, or idle styling, optional icon, and TrackPoint nub marker.",
+      "tags": [
+        "component",
+        "ui",
+        "keyboard"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/pages/KeyboardTestPage.tsx:Touchpad",
+      "type": "function",
+      "name": "Touchpad",
+      "filePath": "src/pages/KeyboardTestPage.tsx",
+      "lineRange": [
+        60,
+        126
+      ],
+      "summary": "Renders the touchpad test surface with left, middle, and right buttons, reporting pointer press and release events to the parent page.",
+      "tags": [
+        "component",
+        "ui",
+        "touchpad",
+        "event-handler"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/pages/KeyboardTestPage.tsx:KeyboardTestPage",
+      "type": "function",
+      "name": "KeyboardTestPage",
+      "filePath": "src/pages/KeyboardTestPage.tsx",
+      "lineRange": [
+        134,
+        314
+      ],
+      "summary": "Main keyboard test page component: owns pressed and held key state, binds global keydown/keyup/blur listeners, renders the layout and touchpad, and shows registration progress.",
+      "tags": [
+        "component",
+        "page",
+        "state-management",
+        "event-handler"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:vite.config.ts",
+      "type": "file",
+      "name": "vite.config.ts",
+      "filePath": "vite.config.ts",
+      "summary": "Vite build configuration enabling the React and Tailwind CSS v4 plugins.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "vite",
+        "tailwind"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/components/checklist/PrintReport.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/pages/ChecklistPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/pages/DisplayTestPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/pages/KeyboardTestPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/pages/SplashPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/store.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/PrintReport.tsx",
+      "target": "file:src/components/checklist/SummaryBar.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/PrintReport.tsx",
+      "target": "file:src/data/checklist.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/PrintReport.tsx",
+      "target": "file:src/store.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/PrintReport.tsx",
+      "target": "file:src/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/SummaryBar.tsx",
+      "target": "file:src/App.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/SummaryBar.tsx",
+      "target": "file:src/store.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/main.tsx",
+      "target": "file:src/App.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/main.tsx",
+      "target": "file:src/index.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/SplashPage.tsx",
+      "target": "file:src/App.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/SplashPage.tsx",
+      "target": "file:src/data/checklist.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "function:src/App.tsx:LogoMark",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "function:src/App.tsx:Header",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "function:src/App.tsx:Shell",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "function:src/App.tsx:App",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/checklist/PrintReport.tsx",
+      "target": "function:src/components/checklist/PrintReport.tsx:PrintReport",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/checklist/SummaryBar.tsx",
+      "target": "function:src/components/checklist/SummaryBar.tsx:Stat",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/checklist/SummaryBar.tsx",
+      "target": "function:src/components/checklist/SummaryBar.tsx:gradeOf",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/checklist/SummaryBar.tsx",
+      "target": "function:src/components/checklist/SummaryBar.tsx:SummaryBar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/pages/DisplayTestPage.tsx",
+      "target": "function:src/pages/DisplayTestPage.tsx:FullscreenTest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/pages/DisplayTestPage.tsx",
+      "target": "function:src/pages/DisplayTestPage.tsx:DisplayTestPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/pages/SplashPage.tsx",
+      "target": "function:src/pages/SplashPage.tsx:SplashPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "function:src/App.tsx:LogoMark",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "function:src/App.tsx:App",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/checklist/PrintReport.tsx",
+      "target": "function:src/components/checklist/PrintReport.tsx:PrintReport",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/checklist/SummaryBar.tsx",
+      "target": "function:src/components/checklist/SummaryBar.tsx:gradeOf",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/checklist/SummaryBar.tsx",
+      "target": "function:src/components/checklist/SummaryBar.tsx:SummaryBar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/pages/DisplayTestPage.tsx",
+      "target": "function:src/pages/DisplayTestPage.tsx:DisplayTestPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/pages/SplashPage.tsx",
+      "target": "function:src/pages/SplashPage.tsx:SplashPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/App.tsx:Header",
+      "target": "function:src/App.tsx:LogoMark",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:src/App.tsx:Shell",
+      "target": "function:src/pages/SplashPage.tsx:SplashPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:src/App.tsx:Shell",
+      "target": "function:src/pages/DisplayTestPage.tsx:DisplayTestPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:src/App.tsx:Shell",
+      "target": "function:src/pages/ChecklistPage.tsx:ChecklistPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:src/App.tsx:Shell",
+      "target": "function:src/pages/KeyboardTestPage.tsx:KeyboardTestPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:src/components/checklist/PrintReport.tsx:PrintReport",
+      "target": "function:src/components/checklist/SummaryBar.tsx:gradeOf",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/checklist/SummaryBar.tsx:SummaryBar",
+      "target": "function:src/App.tsx:LogoMark",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:src/pages/SplashPage.tsx:SplashPage",
+      "target": "function:src/App.tsx:LogoMark",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/store.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/components/checklist/PrintReport.tsx",
+      "target": "file:src/store.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/components/checklist/SummaryBar.tsx",
+      "target": "file:src/store.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/components/checklist/ItemRow.tsx",
+      "target": "file:src/store.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/ItemRow.tsx",
+      "target": "file:src/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/SectionBand.tsx",
+      "target": "file:src/components/checklist/ItemRow.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/SectionBand.tsx",
+      "target": "file:src/store.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/SectionBand.tsx",
+      "target": "file:src/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/SectionRail.tsx",
+      "target": "file:src/store.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/SectionRail.tsx",
+      "target": "file:src/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/store.tsx",
+      "target": "file:src/data/checklist.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/store.tsx",
+      "target": "file:src/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/ItemRow.tsx",
+      "target": "function:src/components/checklist/ItemRow.tsx:ItemRow",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/checklist/SectionBand.tsx",
+      "target": "function:src/components/checklist/SectionBand.tsx:SectionBand",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/checklist/SectionRail.tsx",
+      "target": "function:src/components/checklist/SectionRail.tsx:sectionState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/checklist/SectionRail.tsx",
+      "target": "function:src/components/checklist/SectionRail.tsx:SectionRail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/checklist/SectionRail.tsx",
+      "target": "function:src/components/checklist/SectionRail.tsx:SectionRailMobile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/store.tsx",
+      "target": "function:src/store.tsx:loadStatuses",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/store.tsx",
+      "target": "function:src/store.tsx:loadQuickStatuses",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/store.tsx",
+      "target": "function:src/store.tsx:loadReasons",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/store.tsx",
+      "target": "function:src/store.tsx:loadQuickReasons",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/store.tsx",
+      "target": "function:src/store.tsx:loadMeta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/store.tsx",
+      "target": "function:src/store.tsx:ChecklistProvider",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/store.tsx",
+      "target": "function:src/store.tsx:useChecklist",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/checklist/ItemRow.tsx",
+      "target": "function:src/components/checklist/ItemRow.tsx:ItemRow",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/checklist/SectionBand.tsx",
+      "target": "function:src/components/checklist/SectionBand.tsx:SectionBand",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/checklist/SectionRail.tsx",
+      "target": "function:src/components/checklist/SectionRail.tsx:SectionRail",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/checklist/SectionRail.tsx",
+      "target": "function:src/components/checklist/SectionRail.tsx:SectionRailMobile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/store.tsx",
+      "target": "function:src/store.tsx:ChecklistProvider",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/store.tsx",
+      "target": "function:src/store.tsx:useChecklist",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/checklist/ItemRow.tsx:ItemRow",
+      "target": "function:src/store.tsx:useChecklist",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/checklist/SectionBand.tsx:SectionBand",
+      "target": "function:src/store.tsx:useChecklist",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/checklist/SectionBand.tsx:SectionBand",
+      "target": "function:src/components/checklist/ItemRow.tsx:ItemRow",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/checklist/SectionRail.tsx:SectionRail",
+      "target": "function:src/store.tsx:useChecklist",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/checklist/SectionRail.tsx:SectionRailMobile",
+      "target": "function:src/store.tsx:useChecklist",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/checklist/FailuresPanel.tsx",
+      "target": "file:src/data/checklist.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/FailuresPanel.tsx",
+      "target": "file:src/store.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/data/checklist.ts",
+      "target": "file:src/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/ChecklistPage.tsx",
+      "target": "file:src/components/checklist/FailuresPanel.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/ChecklistPage.tsx",
+      "target": "file:src/components/checklist/SectionBand.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/ChecklistPage.tsx",
+      "target": "file:src/components/checklist/SectionRail.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/ChecklistPage.tsx",
+      "target": "file:src/components/checklist/SummaryBar.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/ChecklistPage.tsx",
+      "target": "file:src/data/checklist.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/ChecklistPage.tsx",
+      "target": "file:src/store.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/checklist/FailuresPanel.tsx",
+      "target": "function:src/components/checklist/FailuresPanel.tsx:FailuresPanel",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/pages/ChecklistPage.tsx",
+      "target": "function:src/pages/ChecklistPage.tsx:EmptyState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/pages/ChecklistPage.tsx",
+      "target": "function:src/pages/ChecklistPage.tsx:ChecklistPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/checklist/FailuresPanel.tsx",
+      "target": "function:src/components/checklist/FailuresPanel.tsx:FailuresPanel",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/pages/ChecklistPage.tsx",
+      "target": "function:src/pages/ChecklistPage.tsx:ChecklistPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/checklist/FailuresPanel.tsx:FailuresPanel",
+      "target": "function:src/store.tsx:useChecklist",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/pages/ChecklistPage.tsx:ChecklistPage",
+      "target": "function:src/store.tsx:useChecklist",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/pages/ChecklistPage.tsx:ChecklistPage",
+      "target": "function:src/components/checklist/SummaryBar.tsx:SummaryBar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:src/pages/ChecklistPage.tsx:ChecklistPage",
+      "target": "function:src/components/checklist/SectionRail.tsx:SectionRail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:src/pages/ChecklistPage.tsx:ChecklistPage",
+      "target": "function:src/components/checklist/SectionRail.tsx:SectionRailMobile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:src/pages/ChecklistPage.tsx:ChecklistPage",
+      "target": "function:src/components/checklist/SectionBand.tsx:SectionBand",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:src/pages/ChecklistPage.tsx:ChecklistPage",
+      "target": "function:src/components/checklist/FailuresPanel.tsx:FailuresPanel",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "service:Dockerfile:static-debian12",
+      "target": "service:Dockerfile:build",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:Dockerfile:static-debian12",
+      "target": "service:Dockerfile:sws",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:Dockerfile",
+      "target": "file:src/main.tsx",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "service:Dockerfile",
+      "target": "file:index.html",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "service:Dockerfile",
+      "target": "file:vite.config.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:.dockerignore",
+      "target": "service:Dockerfile",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-checklistpage-tsx.md",
+      "target": "file:src/pages/ChecklistPage.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-checklistpage-tsx.md",
+      "target": "file:src/components/checklist/ItemRow.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-checklistpage-tsx.md",
+      "target": "file:src/components/checklist/SummaryBar.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-checklistpage-tsx.md",
+      "target": "file:src/components/checklist/FailuresPanel.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-checklistpage-tsx.md",
+      "target": "file:src/components/checklist/SectionBand.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-checklistpage-tsx.md",
+      "target": "file:src/data/checklist.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-checklistpage-tsx.md",
+      "target": "file:src/store.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-displaytestpage-tsx.md",
+      "target": "file:src/pages/DisplayTestPage.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-displaytestpage-tsx.md",
+      "target": "file:src/components/checklist/SummaryBar.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-displaytestpage-tsx.md",
+      "target": "file:src/pages/KeyboardTestPage.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-keyboardtestpage-tsx.md",
+      "target": "file:src/pages/KeyboardTestPage.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-keyboardtestpage-tsx.md",
+      "target": "file:src/components/tools/keyboardLayout.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-keyboardtestpage-tsx.md",
+      "target": "file:src/pages/DisplayTestPage.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-splashpage-tsx.md",
+      "target": "file:src/pages/SplashPage.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-splashpage-tsx.md",
+      "target": "file:src/App.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-splashpage-tsx.md",
+      "target": "file:src/pages/ChecklistPage.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:.oxlintrc.json",
+      "target": "file:src/main.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:.oxlintrc.json",
+      "target": "file:src/App.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:vite.config.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:index.html",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:src/main.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.json",
+      "target": "config:tsconfig.app.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.json",
+      "target": "config:tsconfig.node.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.app.json",
+      "target": "file:src/main.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.app.json",
+      "target": "file:src/App.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.node.json",
+      "target": "file:vite.config.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:index.html",
+      "target": "file:src/main.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:index.html",
+      "target": "file:src/index.css",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "pipeline:Jenkinsfile",
+      "target": "service:Dockerfile",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:Jenkinsfile",
+      "target": "config:package.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:jenkins-test.txt",
+      "target": "pipeline:Jenkinsfile",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:src/data/checklist.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:src/store.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:src/App.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:src/index.css",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:src/types.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:src/pages/SplashPage.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:src/components/checklist/SummaryBar.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:PRODUCT.md",
+      "target": "file:src/data/checklist.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:PRODUCT.md",
+      "target": "file:src/store.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:PRODUCT.md",
+      "target": "file:src/pages/ChecklistPage.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:PRODUCT.md",
+      "target": "file:src/pages/DisplayTestPage.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:PRODUCT.md",
+      "target": "file:src/pages/KeyboardTestPage.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:vite.config.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:.oxlintrc.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:package.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/components/tools/keyboardLayout.ts",
+      "target": "file:src/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/KeyboardTestPage.tsx",
+      "target": "file:src/components/tools/keyboardLayout.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/KeyboardTestPage.tsx",
+      "target": "function:src/pages/KeyboardTestPage.tsx:Key",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/pages/KeyboardTestPage.tsx",
+      "target": "function:src/pages/KeyboardTestPage.tsx:Touchpad",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/pages/KeyboardTestPage.tsx",
+      "target": "function:src/pages/KeyboardTestPage.tsx:KeyboardTestPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/pages/KeyboardTestPage.tsx",
+      "target": "function:src/pages/KeyboardTestPage.tsx:KeyboardTestPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/index.css",
+      "target": "file:src/main.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:vite.config.ts",
+      "target": "file:src/index.css",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:app-entry",
+      "name": "Application Entry and Shell",
+      "description": "Browser bootstrap, React root mount, and the top-level App shell that owns tab state, the sticky header, and view switching.",
+      "nodeIds": [
+        "file:index.html",
+        "file:src/main.tsx",
+        "file:src/App.tsx"
+      ]
+    },
+    {
+      "id": "layer:ui-pages",
+      "name": "Page Views",
+      "description": "Top-level screens for the splash landing, inspection checklist, display color test, and keyboard test.",
+      "nodeIds": [
+        "file:src/pages/SplashPage.tsx",
+        "file:src/pages/ChecklistPage.tsx",
+        "file:src/pages/DisplayTestPage.tsx",
+        "file:src/pages/KeyboardTestPage.tsx"
+      ]
+    },
+    {
+      "id": "layer:ui-components",
+      "name": "Checklist UI Components",
+      "description": "Reusable checklist presentation pieces for section bands, item rows, section navigation, progress summary, failure aggregation, and the printable report.",
+      "nodeIds": [
+        "file:src/components/checklist/SectionBand.tsx",
+        "file:src/components/checklist/ItemRow.tsx",
+        "file:src/components/checklist/SectionRail.tsx",
+        "file:src/components/checklist/SummaryBar.tsx",
+        "file:src/components/checklist/FailuresPanel.tsx",
+        "file:src/components/checklist/PrintReport.tsx"
+      ]
+    },
+    {
+      "id": "layer:state",
+      "name": "State Management",
+      "description": "React context store that holds full and quick mode statuses, failure reasons, and laptop metadata, persisting them to localStorage and exposing derived counts.",
+      "nodeIds": [
+        "file:src/store.tsx"
+      ]
+    },
+    {
+      "id": "layer:data",
+      "name": "Content and Domain Data",
+      "description": "Shared domain types plus the static checklist content (10 sections, 65 items) and ThinkPad keyboard layout that drive the whole app.",
+      "nodeIds": [
+        "file:src/types.ts",
+        "file:src/data/checklist.ts",
+        "file:src/components/tools/keyboardLayout.ts"
+      ]
+    },
+    {
+      "id": "layer:styles",
+      "name": "Global Styles and Theme",
+      "description": "Tailwind v4 entry stylesheet defining dark theme tokens, base styles, print rules, and the test and grading animations.",
+      "nodeIds": [
+        "file:src/index.css"
+      ]
+    },
+    {
+      "id": "layer:config",
+      "name": "Configuration",
+      "description": "Bun package manifest, TypeScript project references, Vite and Tailwind build setup, lint rules, Docker build context exclusions, and design-review hook settings.",
+      "nodeIds": [
+        "config:package.json",
+        "config:tsconfig.json",
+        "config:tsconfig.app.json",
+        "config:tsconfig.node.json",
+        "file:vite.config.ts",
+        "config:.oxlintrc.json",
+        "config:.dockerignore",
+        "config:.impeccable/config.json"
+      ]
+    },
+    {
+      "id": "layer:infrastructure",
+      "name": "Infrastructure and CI/CD",
+      "description": "Multi-stage distroless container build stages and the Jenkins pipeline that typechecks, lints, builds, and pushes the image.",
+      "nodeIds": [
+        "service:Dockerfile",
+        "service:Dockerfile:build",
+        "service:Dockerfile:sws",
+        "service:Dockerfile:static-debian12",
+        "pipeline:Jenkinsfile"
+      ]
+    },
+    {
+      "id": "layer:documentation",
+      "name": "Documentation",
+      "description": "Product brief, agent operating guide, Vite template README, Jenkins trigger placeholder, and the four Impeccable design critiques of the main pages.",
+      "nodeIds": [
+        "document:AGENTS.md",
+        "document:PRODUCT.md",
+        "document:README.md",
+        "document:jenkins-test.txt",
+        "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-checklistpage-tsx.md",
+        "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-displaytestpage-tsx.md",
+        "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-keyboardtestpage-tsx.md",
+        "document:.impeccable/critique/2026-10-09T07-27-54Z__src-pages-splashpage-tsx.md"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Product Overview",
+      "description": "Start with PRODUCT.md, the product brief for BenchCheck: a buyer-side instrument for inspecting a used laptop before purchase, with a short quick pass and a full 65-item pass. AGENTS.md then documents the Bun/React/Tailwind stack, locked design rules, and file structure that the rest of the tour follows. README.md is only the default Vite template text, so treat it as setup boilerplate rather than product documentation.",
+      "nodeIds": [
+        "document:PRODUCT.md",
+        "document:AGENTS.md",
+        "document:README.md"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Browser Bootstrap",
+      "description": "The app starts from index.html, which provides the React root element and full SEO metadata, including Open Graph tags and SoftwareApplication JSON-LD. It loads src/main.tsx, which imports the Geist fonts and global stylesheet before mounting App inside StrictMode. Together these files show the whole path from static HTML to a running React tree, with no server involved.",
+      "nodeIds": [
+        "file:index.html",
+        "file:src/main.tsx"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "App Shell and Tabs",
+      "description": "App.tsx is the top-level shell and the highest fan-out file in the project. It owns the active tab, renders the sticky header with the frame-break LogoMark, mounts ChecklistProvider, and swaps between splash, checklist, display test, and keyboard test views. Because every page is imported here, this file is the map of the app's navigation.",
+      "nodeIds": [
+        "file:src/App.tsx"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Domain Types",
+      "description": "types.ts defines the shared vocabulary the rest of the codebase compiles against: checklist sections, individual check items, the pending/pass/fail status union, and the icon component contract. It has high fan-in precisely because it holds no logic, only contracts. Read it before the content and state layers so the later types make sense.",
+      "nodeIds": [
+        "file:src/types.ts"
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Checklist Content",
+      "description": "src/data/checklist.ts is the single source of truth for the inspection itself: ten sections with 65 items, section metadata and icons, derived totals, and the priority-sorted quick-pass list. Content lives here rather than in components, so changing what BenchCheck asks means editing this one file. Each group marks one item with a priority score that defines the 30-45 minute quick pass.",
+      "nodeIds": [
+        "file:src/data/checklist.ts"
+      ]
+    },
+    {
+      "order": 6,
+      "title": "State and Persistence",
+      "description": "store.tsx is the most depended-on file in the project, holding full and quick mode statuses, failure reasons, and laptop metadata in React context. It persists each slice to localStorage under mode-scoped keys and exposes cycle(id) plus derived counts for the active mode. The loader helpers at the top of the file show how saved state is rehydrated on first render.",
+      "nodeIds": [
+        "file:src/store.tsx"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Checklist Screen",
+      "description": "ChecklistPage.tsx is the main working view, combining the device model input, summary bar, full/quick mode switch, print action, section rail, section bands, and the brutalist quick-pass deck. SummaryBar.tsx sits at the top of that view and turns store counts into done/total progress, pass/fail/remaining stats, a two-step reset, and a rubber-stamp grade seal once every item is checked.",
+      "nodeIds": [
+        "file:src/pages/ChecklistPage.tsx",
+        "file:src/components/checklist/SummaryBar.tsx"
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Sections and Item Rows",
+      "description": "These components render the checklist itself. SectionBand.tsx draws a section header with its progress count and maps items into rows, while ItemRow.tsx renders each tri-state checkbox and reveals an inline reason input on failure. SectionRail.tsx provides the sticky desktop index and mobile chip scroller, color-coding each section by completion state.",
+      "nodeIds": [
+        "file:src/components/checklist/SectionBand.tsx",
+        "file:src/components/checklist/ItemRow.tsx",
+        "file:src/components/checklist/SectionRail.tsx"
+      ]
+    },
+    {
+      "order": 9,
+      "title": "Failures and Print Report",
+      "description": "FailuresPanel.tsx aggregates every failed item with its recorded reason and an anchor link back to the owning section, returning null when nothing fails. PrintReport.tsx is the hidden print-only article that renders the full or quick report with per-item markers, reasons, a date stamp, and the overall grade. Together they turn live checklist state into something a buyer can act on and keep.",
+      "nodeIds": [
+        "file:src/components/checklist/FailuresPanel.tsx",
+        "file:src/components/checklist/PrintReport.tsx"
+      ]
+    },
+    {
+      "order": 10,
+      "title": "Splash Landing",
+      "description": "SplashPage.tsx is the one-time landing view that tells the BenchCheck story through an interactive demo checklist, a key-press preview, a color-pattern preview, stats, and the section list. It reuses checklist data rather than duplicating content, which is why the tour reaches it after the data and state layers. The header logo returns here on demand.",
+      "nodeIds": [
+        "file:src/pages/SplashPage.tsx"
+      ]
+    },
+    {
+      "order": 11,
+      "title": "Display Test",
+      "description": "DisplayTestPage.tsx explains the pixel and backlight defects a buyer should look for, then launches a fullscreen color-surface test with keyboard and on-screen controls. It is one of the few places where pure white, black, red, green, and blue are allowed, because those surfaces are the test patterns rather than decoration. This view covers the screen checks that no checklist row can perform for you.",
+      "nodeIds": [
+        "file:src/pages/DisplayTestPage.tsx"
+      ]
+    },
+    {
+      "order": 12,
+      "title": "Keyboard Test",
+      "description": "KeyboardTestPage.tsx is the interactive hardware test: it highlights keys as they register, tracks held state, and reports progress toward the total key count, with a touchpad area alongside. keyboardLayout.ts supplies the ThinkPad 6-row US layout as row definitions plus the arrow cluster and total count. The data file keeps layout geometry out of the page component, so the same test could target another keyboard.",
+      "nodeIds": [
+        "file:src/pages/KeyboardTestPage.tsx",
+        "file:src/components/tools/keyboardLayout.ts"
+      ]
+    },
+    {
+      "order": 13,
+      "title": "Theme and Motion",
+      "description": "src/index.css is the Tailwind v4 entry stylesheet and the source of the locked dark theme tokens, base styles, print report rules, and custom animations for the bolt strike, grade stamp, hazard stripes, and scanlines. It also holds the prefers-reduced-motion handling that the rest of the UI relies on. Reading it explains why components use the signal/pass/fail color names instead of raw palette classes.",
+      "nodeIds": [
+        "file:src/index.css"
+      ]
+    },
+    {
+      "order": 14,
+      "title": "Build and Type Configuration",
+      "description": "package.json declares the Bun scripts for dev, build, lint, typecheck, and preview, plus the React 19, Vite, Tailwind, Phosphor, and Geist dependencies. vite.config.ts wires the React and Tailwind v4 plugins, while the tsconfig files split application and tooling compilation with strict unused checks. This is the toolchain that turns the source into the static bundle deployed next.",
+      "nodeIds": [
+        "config:package.json",
+        "file:vite.config.ts",
+        "config:tsconfig.app.json",
+        "config:tsconfig.json",
+        "config:.oxlintrc.json"
+      ]
+    },
+    {
+      "order": 15,
+      "title": "Container and CI",
+      "description": "The Dockerfile builds the app in a Bun stage and serves the static dist output from a distroless nonroot image running static-web-server on port 8080, with separate build, sws, and runtime stages. .dockerignore keeps node_modules, dist, git metadata, and markdown out of the build context. The Jenkinsfile closes the loop by typechecking and linting on a Bun agent, then building and pushing the tagged image with Buildah.",
+      "nodeIds": [
+        "service:Dockerfile",
+        "service:Dockerfile:build",
+        "service:Dockerfile:static-debian12",
+        "config:.dockerignore",
+        "pipeline:Jenkinsfile"
+      ]
+    }
+  ]
+}
