@@ -1,4 +1,4 @@
-@Library('homelab@master') _
+@Library('homelab') _
 
 pipeline {
   agent none
