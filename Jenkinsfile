@@ -1,3 +1,5 @@
+@Library('homelab@master') _
+
 pipeline {
   agent none
   options {
@@ -6,6 +8,7 @@ pipeline {
   }
   environment {
     IMAGE = 'harbor.dreadwrym.my.id/apps/bench-check'
+    TAG   = "${env.GIT_COMMIT?.take(7) ?: 'latest'}"
   }
   stages {
     stage('verify') {
@@ -36,9 +39,6 @@ pipeline {
     }
     stage('build image & push') {
       agent { label 'buildah' }
-      environment {
-        TAG = "${env.GIT_COMMIT?.take(7) ?: 'latest'}"
-      }
       stages {
         stage('build image') {
           steps {
@@ -58,6 +58,25 @@ pipeline {
                 buildah --storage-driver=vfs push --authfile /auth/.dockerconfigjson "$IMAGE:latest"
               '''
             }
+          }
+        }
+      }
+    }
+    stage('bump gitops tag') {
+      agent { label 'buildah' }
+      steps {
+        container('buildah') {
+          script {
+            bumpGitopsTag(
+              repoUrl: "https://github.com/Richie-Z/homelab.git",
+              branch: 'master',
+              filePath: 'apps/benchcheck/values.yaml',
+              scope: 'benchcheck',
+              tag: env.TAG,
+              credentialsId: 'gh-homelab',
+              userName: 'jenkins',
+              userEmail: 'jenkins@dreadwrym.my.id'
+            )
           }
         }
       }
