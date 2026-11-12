@@ -8,7 +8,6 @@ pipeline {
   }
   environment {
     IMAGE = 'harbor.dreadwrym.my.id/apps/bench-check'
-    TAG   = "${env.GIT_COMMIT?.take(7) ?: 'latest'}"
   }
   stages {
     stage('verify') {
@@ -40,6 +39,13 @@ pipeline {
     stage('build image & push') {
       agent { label 'buildah' }
       stages {
+        stage('resolve tag') {
+          steps {
+            script {
+              env.TAG = (env.GIT_COMMIT ?: '').take(7) ?: 'latest'
+            }
+          }
+        }
         stage('build image') {
           steps {
             container('buildah') {
