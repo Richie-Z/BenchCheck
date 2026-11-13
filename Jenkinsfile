@@ -54,7 +54,7 @@ pipeline {
                 buildImage(
                   dockerFilePath: "./Dockerfile",
                   context: '.',
-                  imageName: 'benchcheck',
+                  imageName: 'bench-check',
                   tag: env.TAG,
                 )
               }
