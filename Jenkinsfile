@@ -75,13 +75,10 @@ pipeline {
           script {
             bumpGitopsTag(
               repoUrl: "https://github.com/Richie-Z/homelab.git",
-              branch: 'master',
-              filePath: 'apps/benchcheck/values.yaml',
+              filePath: 'apps/benchcheck/image.yaml',
               scope: 'benchcheck',
               tag: env.TAG,
               credentialsId: 'gh-homelab',
-              userName: 'jenkins',
-              userEmail: 'jenkins@dreadwrym.my.id'
             )
           }
         }
