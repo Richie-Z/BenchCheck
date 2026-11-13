@@ -52,7 +52,7 @@ pipeline {
             container('buildah') {
               script {
                 buildImage(
-                  dockerFilePath: "./$DOCKERFILE",
+                  dockerFilePath: "./Dockerfile",
                   context: '.',
                   imageName: 'benchcheck',
                   tag: env.TAG,
