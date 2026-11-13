@@ -36,7 +36,7 @@ pipeline {
         }
       }
     }
-    stage('build image & push') {
+    stage('ci') {
       agent { label 'buildah' }
       stages {
         stage('resolve tag') {
@@ -46,23 +46,18 @@ pipeline {
             }
           }
         }
-        stage('build image') {
+
+        stage('build image & push') {
           steps {
             container('buildah') {
-              sh '''
-                buildah --storage-driver=vfs build --isolation=chroot \
-                  -t "$IMAGE:$TAG" -t "$IMAGE:latest" .
-              '''
-            }
-          }
-        }
-        stage('push') {
-          steps {
-            container('buildah') {
-              sh '''
-                buildah --storage-driver=vfs push --authfile /auth/.dockerconfigjson "$IMAGE:$TAG"
-                buildah --storage-driver=vfs push --authfile /auth/.dockerconfigjson "$IMAGE:latest"
-              '''
+              script {
+                buildImage(
+                  dockerFilePath: "./$DOCKERFILE",
+                  context: '.',
+                  imageName: 'benchcheck',
+                  tag: env.TAG,
+                )
+              }
             }
           }
         }
