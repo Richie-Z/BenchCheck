@@ -1,11 +1,11 @@
 # CONTAINERIZE - Solo/BenchCheck
 
-Archetype: react-spa. Generated 2026-11-20T21:43:00+07:00 by .opencode/scripts/render.sh on branch chore/containerize (uncommitted).
+Archetype: react-spa. Generated 2026-11-20T22:42:20+07:00 by .opencode/scripts/render.sh on branch chore/containerize (uncommitted).
 
 ## Generated files
-- Dockerfile.generated (template: Dockerfile.spa)
-- Jenkinsfile.generated (CI only; parameters REGISTRY, HARBOR_PROJECT, HARBOR_CRED_ID)
-- .dockerignore.generated
+- Dockerfile (template: Dockerfile.spa)
+- Jenkinsfile (CI only; parameters REGISTRY, HARBOR_PROJECT, HARBOR_CRED_ID)
+- .dockerignore
 - .containerize/nginx-spa.conf.template
 
 ## Local run
@@ -22,8 +22,5 @@ unknown - inspect app config (do not print secret values)
 boot + healthcheck only (DB not smoke-tested). db_driver: unknown. Never migrate/seed/modify; DBs are live.
 
 ## Flags
-- existing Dockerfile kept; wrote Dockerfile.generated
-- existing Jenkinsfile kept; wrote Jenkinsfile.generated (point the Jenkins job at it)
-- existing .dockerignore kept; wrote .dockerignore.generated (build.sh uses it via --ignorefile)
 
-Smoke results: 2026-11-20T21:43:09+07:00 boot=PASS http=200 db=skipped (db_driver=unknown; boot + healthcheck only, DB not smoke-tested)
+Smoke results: 2026-11-20T23:03:58+07:00 boot=PASS http=200 db=not verified (no read-only CLI for react-spa; health endpoint only)

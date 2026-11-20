@@ -1,23 +1,15 @@
-# syntax=docker/dockerfile:1
-
 FROM docker.io/oven/bun:1-alpine AS build
 WORKDIR /app
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 COPY . .
+ENV NODE_OPTIONS=--openssl-legacy-provider
+
 RUN bun run build
 
-FROM ghcr.io/static-web-server/static-web-server:2 AS sws
-
-FROM gcr.io/distroless/static-debian12:nonroot
-COPY --from=sws /static-web-server /usr/local/bin/static-web-server
-COPY --from=build /app/dist /srv
-ENV SERVER_PORT=8080 \
-    SERVER_ROOT=/srv \
-    SERVER_FALLBACK_PAGE=/srv/index.html \
-    SERVER_SECURITY_HEADERS=true \
-    SERVER_DISABLE_SYMLINKS=true \
-    SERVER_IGNORE_HIDDEN_FILES=true \
-    SERVER_HEALTH=true
+FROM docker.io/nginxinc/nginx-unprivileged:1.27-alpine AS runtime
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY .containerize/nginx-spa.conf.template /etc/nginx/templates/default.conf.template
+ENV PORT=8080
 EXPOSE 8080
-ENTRYPOINT ["/usr/local/bin/static-web-server"]
+HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["sh", "-c", "wget -q -O /dev/null http://127.0.0.1:${PORT}/ || exit 1"]
