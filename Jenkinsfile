@@ -6,8 +6,13 @@ pipeline {
     timeout(time: 10, unit: 'MINUTES')
     disableConcurrentBuilds()
   }
+  parameters {
+    string(name: 'REGISTRY', description: 'Harbor registry host')
+    string(name: 'HARBOR_PROJECT', description: 'Harbor project name')
+    string(name: 'HARBOR_CRED_ID', description: 'Jenkins credential ID for Harbor push')
+  }
   environment {
-    IMAGE = 'harbor.dreadwrym.my.id/apps/bench-check'
+    IMAGE = "${params.REGISTRY}/${params.HARBOR_PROJECT}/benchcheck"
   }
   stages {
     stage('verify') {
@@ -46,7 +51,6 @@ pipeline {
             }
           }
         }
-
         stage('build image & push') {
           steps {
             container('buildah') {
@@ -54,27 +58,13 @@ pipeline {
                 buildImage(
                   dockerFilePath: "./Dockerfile",
                   context: '.',
-                  imageName: 'bench-check',
+                  imageName: 'benchcheck',
                   tag: env.TAG,
+                  registryHost: params.REGISTRY,
+                  registryProject: params.HARBOR_PROJECT,
                 )
               }
             }
-          }
-        }
-      }
-    }
-    stage('bump gitops tag') {
-      agent { label 'buildah' }
-      steps {
-        container('buildah') {
-          script {
-            bumpGitopsTag(
-              repoUrl: "https://github.com/Richie-Z/homelab.git",
-              filePath: 'apps/benchcheck/image.yaml',
-              scope: 'benchcheck',
-              tag: env.TAG,
-              credentialsId: 'gh-homelab',
-            )
           }
         }
       }
